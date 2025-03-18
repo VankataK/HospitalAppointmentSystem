@@ -13,10 +13,17 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services
      .AddIdentity<ApplicationUser, IdentityRole<Guid>>(options =>
      {
+         options.User.RequireUniqueEmail = true;
          options.SignIn.RequireConfirmedAccount = false;
+         options.Password.RequireNonAlphanumeric = false;
+         options.Password.RequireDigit = false;
+         options.Password.RequireLowercase = false;
+         options.Password.RequireUppercase = false;
      })
     .AddRoles<IdentityRole<Guid>>()
-    .AddEntityFrameworkStores<HospitalDbContext>();
+    .AddEntityFrameworkStores<HospitalDbContext>()
+    .AddDefaultUI();
+
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 
