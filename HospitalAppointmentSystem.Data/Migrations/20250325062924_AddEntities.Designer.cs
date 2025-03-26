@@ -4,6 +4,7 @@ using HospitalAppointmentSystem.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HospitalAppointmentSystem.Data.Migrations
 {
     [DbContext(typeof(HospitalDbContext))]
-    partial class HospitalDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250325062924_AddEntities")]
+    partial class AddEntities
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -96,98 +99,6 @@ namespace HospitalAppointmentSystem.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("d7d3ce60-901c-49aa-8034-1e8bf56ea24b"),
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "7fb4cad2-7061-471b-9210-afd7134493ba",
-                            Email = "admin@mail.com",
-                            EmailConfirmed = false,
-                            FirstName = "Админ",
-                            LastName = "Админов",
-                            LockoutEnabled = false,
-                            NormalizedEmail = "admin@mail.com",
-                            NormalizedUserName = "admin",
-                            PasswordHash = "AQAAAAIAAYagAAAAEEPI2cLASd1a+eVLk16crCkUj7St+9hXfepcZx8cY1Y9GuQfmrEhALR5ingfscLPAQ==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "7f2a0a7d-926e-4c05-a5c6-563ee7120d38",
-                            TwoFactorEnabled = false,
-                            UserName = "admin"
-                        },
-                        new
-                        {
-                            Id = new Guid("3441ba80-a702-49fa-b95b-072d817b09aa"),
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "c6d83a7e-ba4e-4c12-b88c-28e2674dc497",
-                            Email = "georgi.ivanov@mail.com",
-                            EmailConfirmed = false,
-                            FirstName = "Георги",
-                            LastName = "Иванов",
-                            LockoutEnabled = false,
-                            NormalizedEmail = "georgi.ivanov@mail.com",
-                            NormalizedUserName = "georgi.ivanov",
-                            PasswordHash = "AQAAAAIAAYagAAAAEF76wey2DByX0HyWsOz4jTixDXE8/RShSsEYYFT75mjBPq7JgTXVRxtrr/VsnuCF4g==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "01c54532-6555-4d14-976c-fd9e24358058",
-                            TwoFactorEnabled = false,
-                            UserName = "georgi.ivanov"
-                        },
-                        new
-                        {
-                            Id = new Guid("13e3dad7-c62d-48f3-86d7-d493e3893dd4"),
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "5349fb9c-b6d8-42ff-a915-993436e93c10",
-                            Email = "elena.simeonova@mail.com",
-                            EmailConfirmed = false,
-                            FirstName = "Елена",
-                            LastName = "Симеонова",
-                            LockoutEnabled = false,
-                            NormalizedEmail = "elena.simeonova@mail.com",
-                            NormalizedUserName = "elena.simeonova",
-                            PasswordHash = "AQAAAAIAAYagAAAAEBeFNL/1e7PVDHnjA1WhZaZ84n70Y4CD9Me3jseGRk2rjbdwk7xqP1GZRFuzUcfLKA==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "4cc05338-a1db-4f8c-9575-0bebad2e4483",
-                            TwoFactorEnabled = false,
-                            UserName = "elena.simeonova"
-                        },
-                        new
-                        {
-                            Id = new Guid("99514004-7d19-4c49-8078-b586a00556ef"),
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "28d58c23-56cd-4352-adf7-a94c80be0b0a",
-                            Email = "ivan.petrov@mail.com",
-                            EmailConfirmed = false,
-                            FirstName = "Иван",
-                            LastName = "Петров",
-                            LockoutEnabled = false,
-                            NormalizedEmail = "ivan.petrov@mail.com",
-                            NormalizedUserName = "ivan.petrov",
-                            PasswordHash = "AQAAAAIAAYagAAAAECvS309N66Tswv7QqedE6CO/h9nT7Gd5EHIFqWpExReD1a3dziPHW+Z/KoUXBvvjHg==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "8c3bb87f-26d3-4812-995e-3d36e6b1c799",
-                            TwoFactorEnabled = false,
-                            UserName = "ivan.petrov"
-                        },
-                        new
-                        {
-                            Id = new Guid("840dc7e0-7f6f-4e39-b6e0-3b00e72b4d57"),
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "3ec3902b-1c42-4f51-b564-ec34143d04c5",
-                            Email = "maria.georgieva@mail.com",
-                            EmailConfirmed = false,
-                            FirstName = "Мария",
-                            LastName = "Георгиева",
-                            LockoutEnabled = false,
-                            NormalizedEmail = "maria.georgieva@mail.com",
-                            NormalizedUserName = "maria.georgieva",
-                            PasswordHash = "AQAAAAIAAYagAAAAEMTToAgGxflGLEmReodqcaMWqxN+Brr9nmZ5YO/kRj/BPO0MsL8Mn7KAsAt2PvJoMw==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "fa839606-c749-4d7c-b4bf-6531280913c3",
-                            TwoFactorEnabled = false,
-                            UserName = "maria.georgieva"
-                        });
                 });
 
             modelBuilder.Entity("HospitalAppointmentSystem.Data.Models.Appointment", b =>
@@ -233,18 +144,6 @@ namespace HospitalAppointmentSystem.Data.Migrations
                     b.HasIndex("SpecializationId");
 
                     b.ToTable("Doctors");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("99514004-7d19-4c49-8078-b586a00556ef"),
-                            SpecializationId = new Guid("a23cdf24-2cc1-4a7e-83bc-9c60e6e1ad81")
-                        },
-                        new
-                        {
-                            Id = new Guid("840dc7e0-7f6f-4e39-b6e0-3b00e72b4d57"),
-                            SpecializationId = new Guid("2a38c763-f02d-4462-b4a8-3db8fe07c40b")
-                        });
                 });
 
             modelBuilder.Entity("HospitalAppointmentSystem.Data.Models.Patient", b =>
@@ -256,16 +155,6 @@ namespace HospitalAppointmentSystem.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Patients");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("3441ba80-a702-49fa-b95b-072d817b09aa")
-                        },
-                        new
-                        {
-                            Id = new Guid("13e3dad7-c62d-48f3-86d7-d493e3893dd4")
-                        });
                 });
 
             modelBuilder.Entity("HospitalAppointmentSystem.Data.Models.Rating", b =>
@@ -311,18 +200,6 @@ namespace HospitalAppointmentSystem.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Specializations");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("a23cdf24-2cc1-4a7e-83bc-9c60e6e1ad81"),
-                            Name = "Кардиолог"
-                        },
-                        new
-                        {
-                            Id = new Guid("2a38c763-f02d-4462-b4a8-3db8fe07c40b"),
-                            Name = "Невролог"
-                        });
                 });
 
             modelBuilder.Entity("HospitalAppointmentSystem.Data.Models.Vacation", b =>
@@ -377,14 +254,6 @@ namespace HospitalAppointmentSystem.Data.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("49909919-cb78-4b6e-a71c-d3e06e3e1ad8"),
-                            Name = "Admin",
-                            NormalizedName = "ADMIN"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
@@ -469,13 +338,6 @@ namespace HospitalAppointmentSystem.Data.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = new Guid("d7d3ce60-901c-49aa-8034-1e8bf56ea24b"),
-                            RoleId = new Guid("49909919-cb78-4b6e-a71c-d3e06e3e1ad8")
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
