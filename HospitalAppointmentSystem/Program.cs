@@ -2,6 +2,7 @@ using HospitalAppointmentSystem.Data;
 using HospitalAppointmentSystem.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using HospitalAppointmentSystem.Common.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,6 +24,9 @@ builder.Services
     .AddRoles<IdentityRole<Guid>>()
     .AddEntityFrameworkStores<HospitalDbContext>()
     .AddDefaultUI();
+
+builder.Services.AddRepositories();
+builder.Services.AddApplicationServices();
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();

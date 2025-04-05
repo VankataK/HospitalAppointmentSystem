@@ -1,4 +1,4 @@
-namespace HospitalAppointmentSystem.Models
+namespace HospitalAppointmentSystem.ViewModels
 {
     public class ErrorViewModel
     {

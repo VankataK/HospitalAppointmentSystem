@@ -13,7 +13,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\HospitalAppointmentSystem.Data\HospitalAppointmentSystem.Data.csproj" />
+	  <ProjectReference Include="..\HospitalAppointmentSystem.Data\HospitalAppointmentSystem.Data.csproj" />
+	  <ProjectReference Include="..\HospitalAppointmentSystem.ViewModels\HospitalAppointmentSystem.ViewModels.csproj" />
   </ItemGroup>
 
 </Project>

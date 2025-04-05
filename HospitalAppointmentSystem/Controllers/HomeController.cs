@@ -1,4 +1,4 @@
-using HospitalAppointmentSystem.Models;
+using HospitalAppointmentSystem.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -14,11 +14,6 @@ namespace HospitalAppointmentSystem.Controllers
         }
 
         public IActionResult Index()
-        {
-            return View();
-        }
-
-        public IActionResult Privacy()
         {
             return View();
         }

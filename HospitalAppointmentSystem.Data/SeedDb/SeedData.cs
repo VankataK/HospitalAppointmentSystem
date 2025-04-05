@@ -47,8 +47,8 @@ namespace HospitalAppointmentSystem.Data.SeedDb
             AdminUser = new ApplicationUser()
             {
                 Id = Guid.NewGuid(),
-                UserName = "admin",
-                NormalizedUserName = "admin",
+                UserName = "admin@mail.com",
+                NormalizedUserName = "admin@mail.com",
                 Email = "admin@mail.com",
                 NormalizedEmail = "admin@mail.com",
                 FirstName = "Админ",
@@ -62,8 +62,8 @@ namespace HospitalAppointmentSystem.Data.SeedDb
             FirstPatientUser = new ApplicationUser()
             {
                 Id = Guid.NewGuid(),
-                UserName = "georgi.ivanov",
-                NormalizedUserName = "georgi.ivanov",
+                UserName = "georgi.ivanov@mail.com",
+                NormalizedUserName = "georgi.ivanov@mail.com",
                 Email = "georgi.ivanov@mail.com",
                 NormalizedEmail = "georgi.ivanov@mail.com",
                 FirstName = "Георги",
@@ -82,8 +82,8 @@ namespace HospitalAppointmentSystem.Data.SeedDb
             SecondPatientUser = new ApplicationUser()
             {
                 Id = Guid.NewGuid(),
-                UserName = "elena.simeonova",
-                NormalizedUserName = "elena.simeonova",
+                UserName = "elena.simeonova@mail.com",
+                NormalizedUserName = "elena.simeonova@mail.com",
                 Email = "elena.simeonova@mail.com",
                 NormalizedEmail = "elena.simeonova@mail.com",
                 FirstName = "Елена",
@@ -102,8 +102,8 @@ namespace HospitalAppointmentSystem.Data.SeedDb
             FirstDoctorUser = new ApplicationUser()
             {
                 Id = Guid.NewGuid(),
-                UserName = "ivan.petrov",
-                NormalizedUserName = "ivan.petrov",
+                UserName = "ivan.petrov@mail.com",
+                NormalizedUserName = "ivan.petrov@mail.com",
                 Email = "ivan.petrov@mail.com",
                 NormalizedEmail = "ivan.petrov@mail.com",
                 FirstName = "Иван",
@@ -123,8 +123,8 @@ namespace HospitalAppointmentSystem.Data.SeedDb
             SecondDoctorUser = new ApplicationUser()
             {
                 Id = Guid.NewGuid(),
-                UserName = "maria.georgieva",
-                NormalizedUserName = "maria.georgieva",
+                UserName = "maria.georgieva@mail.com",
+                NormalizedUserName = "maria.georgieva@mail.com",
                 Email = "maria.georgieva@mail.com",
                 NormalizedEmail = "maria.georgieva@mail.com",
                 FirstName = "Мария",
