@@ -1,0 +1,47 @@
+﻿@model DoctorDetailsViewModel
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <a asp-action="Details" asp-route-id="@Model.DoctorId" asp-route-weekOffset="@(ViewBag.WeekOffset - 1)" class="btn btn-outline-primary">&larr; Предишна седмица</a>
+    <h4>@Model.WeekStart.ToString("dd.MM.yyyy") - @Model.WeekStart.AddDays(6).ToString("dd.MM.yyyy")</h4>
+    <a asp-action="Details" asp-route-id="@Model.DoctorId" asp-route-weekOffset="@(ViewBag.WeekOffset + 1)" class="btn btn-outline-primary">Следваща седмица &rarr;</a>
+</div>
+
+<div class="row">
+    @foreach (var day in Model.Days)
+    {
+        <div class="col-12 col-sm-6 col-md-3 mb-4">
+            <div class="card h-100">
+                <div class="card-header text-center">
+                    <strong>@day.DayOfWeekName</strong><br />
+                    <span>@day.Date.ToString("dd.MM.yyyy")</span>
+                </div>
+                <div class="card-body">
+                    @if (day.IsVacationOrWeekend)
+                    {
+                        <div class="text-center text-muted">Недостъпен</div>
+                    }
+                    else
+                    {
+                        foreach (var slot in day.TimeSlots)
+                        {
+                            if (slot.IsAvailable)
+                            {
+                                <a asp-action="Create" asp-controller="Appointment" asp-route-doctorId="@Model.DoctorId" asp-route-dateTime="@((day.Date.Date + slot.Time).ToString("o"))"
+                                   class="btn btn-success btn-sm w-100 mb-1">
+                                    @slot.Time.ToString(@"hh\:mm")
+                                </a>
+                            }
+                            else
+                            {
+                                <button class="btn btn-secondary btn-sm w-100 mb-1" disabled>
+                                    @slot.Time.ToString(@"hh\:mm")
+                                </button>
+                            }
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    }
+</div>
+

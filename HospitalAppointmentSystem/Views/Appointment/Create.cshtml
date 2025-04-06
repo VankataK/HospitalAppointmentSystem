@@ -1,0 +1,19 @@
+﻿@model AppointmentConfirmationViewModel
+
+<div class="card mx-auto mt-5" style="max-width: 500px">
+    <div class="card-body">
+        <h4 class="card-title text-center">Потвърди час</h4>
+        <p><strong>Лекар:</strong> @Model.DoctorName</p>
+        <p><strong>Специализация:</strong> @Model.SpecializationName</p>
+        <p><strong>Час:</strong> @Model.AppointmentDateTime.ToString("dd.MM.yyyy HH:mm")</p>
+
+        <form asp-action="Create" method="post">
+            <input type="hidden" name="DoctorId" value="@Model.DoctorId" />
+            <input type="hidden" name="DoctorName" value="@Model.DoctorName" />
+            <input type="hidden" name="SpecializationName" value="@Model.SpecializationName" />
+            <input type="hidden" name="AppointmentDateTime" value="@Model.AppointmentDateTime.ToString("yyyy-MM-ddTHH:mm:ss")" />
+            <button type="submit" class="btn btn-primary w-100">Потвърди</button>
+        </form>
+    </div>
+</div>
+
