@@ -7,7 +7,7 @@
         <p>@Model.SpecializationName</p>
         <p><strong>Час:</strong> @Model.AppointmentDateTime.ToString("dd.MM.yyyy HH:mm")</p>
 
-        <form asp-action="Create" method="post">
+        <form asp-action="Book" method="post">
             <input type="hidden" name="DoctorId" value="@Model.DoctorId" />
             <input type="hidden" name="DoctorName" value="@Model.DoctorName" />
             <input type="hidden" name="SpecializationName" value="@Model.SpecializationName" />

@@ -10,9 +10,8 @@ namespace HospitalAppointmentSystem.Data.SeedDb
         public ApplicationUser SecondDoctorUser { get; set; } = null!;
         public ApplicationUser AdminUser { get; set; } = null!;
         public IdentityRole<Guid> AdminRole { get; set; } = null!;
-        public IdentityUserRole<Guid> AdminInRole { get; set; } = null!;
-        public Patient FirstPatient { get; set; } = null!;
-        public Patient SecondPatient { get; set; } = null!;
+        public IdentityRole<Guid> PatientRole { get; set; } = null!;
+        public List<IdentityUserRole<Guid>> UsersInRoles { get; set; } = new List<IdentityUserRole<Guid>>();
         public Doctor FirstDoctor { get; set; } = null!;
         public Doctor SecondDoctor { get; set; } = null!;
         public Specialization CardiologySpecialization { get; set; } = null!;
@@ -21,8 +20,9 @@ namespace HospitalAppointmentSystem.Data.SeedDb
         public SeedData()
         {
             SeedSpecializations();
+            SeedRoles();
             SeedUsers();
-            SeedAdminInRole();
+            SeedUsersInRoles();
         }
 
         private void SeedSpecializations()
@@ -37,6 +37,23 @@ namespace HospitalAppointmentSystem.Data.SeedDb
             {
                 Id = Guid.NewGuid(),
                 Name = "Невролог"
+            };
+        }
+
+        private void SeedRoles()
+        {
+            AdminRole = new IdentityRole<Guid>
+            {
+                Id = Guid.NewGuid(),
+                Name = "Admin",
+                NormalizedName = "ADMIN"
+            };
+
+            PatientRole = new IdentityRole<Guid>
+            {
+                Id = Guid.NewGuid(),
+                Name = "Patient",
+                NormalizedName = "PATIENT"
             };
         }
 
@@ -74,11 +91,6 @@ namespace HospitalAppointmentSystem.Data.SeedDb
             FirstPatientUser.PasswordHash =
                 hasher.HashPassword(FirstPatientUser, "georgi123");
 
-            FirstPatient = new Patient()
-            {
-                Id = FirstPatientUser.Id
-            };
-
             SecondPatientUser = new ApplicationUser()
             {
                 Id = Guid.NewGuid(),
@@ -93,11 +105,6 @@ namespace HospitalAppointmentSystem.Data.SeedDb
 
             SecondPatientUser.PasswordHash =
                 hasher.HashPassword(SecondPatientUser, "elena123");
-
-            SecondPatient = new Patient()
-            {
-                Id = SecondPatientUser.Id
-            };
 
             FirstDoctorUser = new ApplicationUser()
             {
@@ -142,19 +149,27 @@ namespace HospitalAppointmentSystem.Data.SeedDb
             };
         }
 
-        private void SeedAdminInRole()
+        private void SeedUsersInRoles()
         {
-            AdminRole = new IdentityRole<Guid>
-            {
-                Id = Guid.NewGuid(),
-                Name = "Admin",
-                NormalizedName = "ADMIN"
-            };
+            UsersInRoles.Clear();
 
-            AdminInRole = new IdentityUserRole<Guid>
+            UsersInRoles = new List<IdentityUserRole<Guid>>()
             {
-                UserId = AdminUser.Id,
-                RoleId = AdminRole.Id,
+                new IdentityUserRole<Guid>()
+                {
+                    UserId = AdminUser.Id,
+                    RoleId = AdminRole.Id
+                },
+                new IdentityUserRole<Guid>()
+                {
+                    UserId = FirstPatientUser.Id,
+                    RoleId = PatientRole.Id
+                },
+                new IdentityUserRole<Guid>()
+                {
+                    UserId = SecondPatientUser.Id,
+                    RoleId = PatientRole.Id
+                }
             };
         }
     }

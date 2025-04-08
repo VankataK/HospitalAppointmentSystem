@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HospitalAppointmentSystem.Data.Migrations
 {
     [DbContext(typeof(HospitalDbContext))]
-    [Migration("20250325062924_AddEntities")]
+    [Migration("20250408062747_AddEntities")]
     partial class AddEntities
     {
         /// <inheritdoc />
@@ -144,17 +144,6 @@ namespace HospitalAppointmentSystem.Data.Migrations
                     b.HasIndex("SpecializationId");
 
                     b.ToTable("Doctors");
-                });
-
-            modelBuilder.Entity("HospitalAppointmentSystem.Data.Models.Patient", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uniqueidentifier")
-                        .HasComment("Patient Identifier");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Patients");
                 });
 
             modelBuilder.Entity("HospitalAppointmentSystem.Data.Models.Rating", b =>
@@ -367,8 +356,8 @@ namespace HospitalAppointmentSystem.Data.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("HospitalAppointmentSystem.Data.Models.Patient", "Patient")
-                        .WithMany("Appointments")
+                    b.HasOne("HospitalAppointmentSystem.Data.Models.ApplicationUser", "Patient")
+                        .WithMany()
                         .HasForeignKey("PatientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -393,17 +382,6 @@ namespace HospitalAppointmentSystem.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Specialization");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("HospitalAppointmentSystem.Data.Models.Patient", b =>
-                {
-                    b.HasOne("HospitalAppointmentSystem.Data.Models.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
 
                     b.Navigation("User");
                 });
@@ -491,11 +469,6 @@ namespace HospitalAppointmentSystem.Data.Migrations
                     b.Navigation("Appointments");
 
                     b.Navigation("Vacations");
-                });
-
-            modelBuilder.Entity("HospitalAppointmentSystem.Data.Models.Patient", b =>
-                {
-                    b.Navigation("Appointments");
                 });
 
             modelBuilder.Entity("HospitalAppointmentSystem.Data.Models.Specialization", b =>

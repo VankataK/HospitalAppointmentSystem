@@ -1,10 +1,8 @@
 ﻿using HospitalAppointmentSystem.Data.Models;
-using HospitalAppointmentSystem.Services;
 using HospitalAppointmentSystem.Services.Interfaces;
 using HospitalAppointmentSystem.ViewModels.Appointment;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System;
 
 namespace HospitalAppointmentSystem.Controllers
 {

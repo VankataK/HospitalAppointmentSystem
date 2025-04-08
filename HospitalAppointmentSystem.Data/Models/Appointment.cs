@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Client;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -16,7 +17,7 @@ namespace HospitalAppointmentSystem.Data.Models
 
         [ForeignKey(nameof(PatientId))]
         [DeleteBehavior(DeleteBehavior.Cascade)]
-        public Patient Patient { get; set; } = null!;
+        public ApplicationUser Patient { get; set; } = null!;
 
         [Required]
         [Comment("Doctor Identifier")]

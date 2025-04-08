@@ -16,7 +16,6 @@ namespace HospitalAppointmentSystem.Data
 
         public DbSet<Appointment> Appointments { get; set; } = null!;
         public DbSet<Doctor> Doctors { get; set; } = null!;
-        public DbSet<Patient> Patients { get; set; } = null!;
         public DbSet<Rating> Ratings { get; set; } = null!;
         public DbSet<Specialization> Specializations { get; set; } = null!;
         public DbSet<Vacation> Vacations { get; set; } = null!;
@@ -27,12 +26,11 @@ namespace HospitalAppointmentSystem.Data
 
             builder.Entity<ApplicationUser>().HasData(data.AdminUser, data.FirstPatientUser, 
                 data.SecondPatientUser, data.FirstDoctorUser, data.SecondDoctorUser);
-            builder.Entity<IdentityRole<Guid>>().HasData(data.AdminRole);
-            builder.Entity<IdentityUserRole<Guid>>().HasData(data.AdminInRole);
+            builder.Entity<IdentityRole<Guid>>().HasData(data.AdminRole, data.PatientRole);
+            builder.Entity<IdentityUserRole<Guid>>().HasData(data.UsersInRoles);
             builder.Entity<Specialization>().HasData(data.CardiologySpecialization, data.NeurologySpecialization);
             builder.Entity<Doctor>().HasData(data.FirstDoctor, data.SecondDoctor);
-            builder.Entity<Patient>().HasData(data.FirstPatient, data.SecondPatient);
-
+            
             base.OnModelCreating(builder);
         }
     }
