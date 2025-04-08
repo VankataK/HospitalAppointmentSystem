@@ -22,7 +22,7 @@ namespace HospitalAppointmentSystem.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Create(string doctorId)
+        public async Task<IActionResult> Book(string doctorId)
         {
             string? dateTimeStr = Request.Query["dateTime"];
             if (!DateTime.TryParse(dateTimeStr, out DateTime dateTime))
@@ -54,7 +54,7 @@ namespace HospitalAppointmentSystem.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(AppointmentConfirmationViewModel inputModel)
+        public async Task<IActionResult> Book(AppointmentConfirmationViewModel inputModel)
         {
             if (!ModelState.IsValid)
             {
@@ -71,5 +71,7 @@ namespace HospitalAppointmentSystem.Controllers
 
             return RedirectToAction("Index", "Home");
         }
+
+        
     }
 }

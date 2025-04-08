@@ -1,9 +1,14 @@
 ﻿@model DoctorDetailsViewModel
 
+<div class="mb-3">
+    <p><strong>Д-р @Model.DoctorName</strong></p>
+    <p>@Model.SpecializationName</p>
+</div>
+
 <div class="d-flex justify-content-between align-items-center mb-3">
-    <a asp-action="Details" asp-route-id="@Model.DoctorId" asp-route-weekOffset="@(ViewBag.WeekOffset - 1)" class="btn btn-outline-primary">&larr; Предишна седмица</a>
+    <a asp-action="Details" asp-route-id="@Model.DoctorId" asp-route-weekOffset="@(ViewBag.WeekOffset - 1)" class="btn btn-outline-primary">&larr;</a>
     <h4>@Model.WeekStart.ToString("dd.MM.yyyy") - @Model.WeekStart.AddDays(6).ToString("dd.MM.yyyy")</h4>
-    <a asp-action="Details" asp-route-id="@Model.DoctorId" asp-route-weekOffset="@(ViewBag.WeekOffset + 1)" class="btn btn-outline-primary">Следваща седмица &rarr;</a>
+    <a asp-action="Details" asp-route-id="@Model.DoctorId" asp-route-weekOffset="@(ViewBag.WeekOffset + 1)" class="btn btn-outline-primary">&rarr;</a>
 </div>
 
 <div class="row">
@@ -26,7 +31,7 @@
                         {
                             if (slot.IsAvailable)
                             {
-                                <a asp-action="Create" asp-controller="Appointment" asp-route-doctorId="@Model.DoctorId" asp-route-dateTime="@((day.Date.Date + slot.Time).ToString("o"))"
+                                <a asp-action="Book" asp-controller="Appointment" asp-route-doctorId="@Model.DoctorId" asp-route-dateTime="@((day.Date.Date + slot.Time).ToString("o"))"
                                    class="btn btn-success btn-sm w-100 mb-1">
                                     @slot.Time.ToString(@"hh\:mm")
                                 </a>

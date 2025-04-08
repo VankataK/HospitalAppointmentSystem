@@ -4,18 +4,18 @@
     ViewData["Title"] = "Лекари";
 }
 
-<h2 class="text-center my-4">Изберете специализация</h2>
+<h2 class="text-center my-4">Изберете специалност</h2>
 
 <form asp-action="Index" method="get" class="d-flex justify-content-center mb-4">
     <select asp-for="SelectedSpecializationId" asp-items="@(new SelectList(Model.Specializations, "Id", "Name"))" class="form-select w-auto me-2">
-        <option value="">-- Всички специализации --</option>
+        <option value="">-- Всички специалности --</option>
     </select>
     <button type="submit" class="btn btn-primary">Филтрирай</button>
 </form>
 
 @if (!Model.Doctors.Any())
 {
-    <div class="alert alert-info text-center">Няма налични лекари за избраната специализация.</div>
+    <div class="alert alert-info text-center">Няма налични лекари за избраната специалност.</div>
 }
 else
 {

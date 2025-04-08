@@ -3,8 +3,8 @@
 <div class="card mx-auto mt-5" style="max-width: 500px">
     <div class="card-body">
         <h4 class="card-title text-center">Потвърди час</h4>
-        <p><strong>Лекар:</strong> @Model.DoctorName</p>
-        <p><strong>Специализация:</strong> @Model.SpecializationName</p>
+        <p><strong>Д-р @Model.DoctorName</strong></p>
+        <p>@Model.SpecializationName</p>
         <p><strong>Час:</strong> @Model.AppointmentDateTime.ToString("dd.MM.yyyy HH:mm")</p>
 
         <form asp-action="Create" method="post">
