@@ -2,6 +2,7 @@
 using HospitalAppointmentSystem.Data.Repository.Interfaces;
 using HospitalAppointmentSystem.Services.Interfaces;
 using HospitalAppointmentSystem.ViewModels.Appointment;
+using Microsoft.EntityFrameworkCore;
 
 namespace HospitalAppointmentSystem.Services
 {
@@ -25,6 +26,25 @@ namespace HospitalAppointmentSystem.Services
             };
 
             await this.appointmentRepository.AddAsync(appointment);
+        }
+
+        public async Task<IEnumerable<MyAppointmentsViewModel>> GetAppointmentsByPatientIdAsync(Guid patientId)
+        {
+            IEnumerable<MyAppointmentsViewModel> appointments = await this.appointmentRepository
+                .GetAllAttached()
+                .Include(a => a.Doctor)
+                .ThenInclude(d => d.User)
+                .Where(a => a.PatientId == patientId)
+                .Select(a => new MyAppointmentsViewModel
+                {
+                    Id = a.Id.ToString(),
+                    DoctorName = $"{a.Doctor.User.FirstName} {a.Doctor.User.LastName}",
+                    AppointmentDateTime = a.AppointmentDateTime,
+                    HasRating = a.Rating != null
+                })
+                .ToListAsync();
+
+            return appointments;
         }
     }
 }

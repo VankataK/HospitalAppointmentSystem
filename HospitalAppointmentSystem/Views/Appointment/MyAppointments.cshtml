@@ -1,0 +1,74 @@
+﻿@model IEnumerable<MyAppointmentsViewModel>
+
+@{
+    ViewData["Title"] = "Моите часове";
+}
+
+<h2 class="text-center mb-4">Моите часове</h2>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info text-center">Нямате запазени часове.</div>
+}
+else
+{
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover text-center align-middle">
+            <thead class="table-dark">
+                <tr>
+                    <th>Доктор</th>
+                    <th>Дата</th>
+                    <th>Час</th>
+                    <th>Статус</th>
+                    <th>Действия</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var appointment in Model)
+                {
+                    var isPast = appointment.AppointmentDateTime < DateTime.Now;
+                    <tr>
+                        <td>@appointment.DoctorName</td>
+                        <td>@appointment.AppointmentDateTime.ToString("dd.MM.yyyy")</td>
+                        <td>@appointment.AppointmentDateTime.ToString("HH:mm")</td>
+                        <td>
+                            @if (isPast)
+                            {
+                                @if (appointment.HasRating)
+                                {
+                                    <span class="badge bg-success">Оценен</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-warning text-dark">Очаква оценка</span>
+                                }
+                            }
+                            else
+                            {
+                                <span class="badge bg-primary">Предстоящ</span>
+                            }
+                        </td>
+                        <td>
+                            @if (isPast && !appointment.HasRating)
+                            {
+                                <a href="@Url.Action("Rate", "Rating", new { appointmentId = appointment.Id })" class="btn btn-sm btn-outline-success">Оцени</a>
+                            }
+                            else if (!isPast)
+                            {
+                                <form asp-action="Cancel" asp-controller="Appointment" method="post" class="d-inline">
+                                    <input type="hidden" name="id" value="@appointment.Id" />
+                                    <button type="submit" class="btn btn-sm btn-outline-danger">Отмени</button>
+                                </form>
+                            }
+                            else
+                            {
+                                <span class="text-muted">—</span>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+

@@ -1,6 +1,8 @@
 ﻿using HospitalAppointmentSystem.Data.Models;
+using HospitalAppointmentSystem.Infrastructure.Extensions;
 using HospitalAppointmentSystem.Services.Interfaces;
 using HospitalAppointmentSystem.ViewModels.Appointment;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -70,6 +72,26 @@ namespace HospitalAppointmentSystem.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        
+        [HttpGet]
+        [Authorize(Roles = "Patient")]
+        public async Task<IActionResult> MyAppointments()
+        {
+            string? userId = User.GetUserId();
+            if(userId == null)
+            {
+                return Unauthorized();
+            }
+
+            Guid userGuid = Guid.Empty;
+            if (!IsGuidValid(userId, ref userGuid))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            IEnumerable<MyAppointmentsViewModel> appointments = await this.appointmentService
+                .GetAppointmentsByPatientIdAsync(userGuid);
+
+            return View(appointments);
+        }
     }
 }

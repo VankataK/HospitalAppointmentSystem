@@ -28,6 +28,15 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Doctor" asp-action="Index">Доктори</a>
                         </li>
+                        @if (this.User?.Identity?.IsAuthenticated ?? false)
+                        {
+                            @if (this.User?.IsInRole("Patient") ?? false)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Appointment" asp-action="MyAppointments">Моите часове</a>
+                                </li>
+                            }
+                        }
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>
