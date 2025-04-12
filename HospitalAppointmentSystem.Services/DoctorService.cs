@@ -118,5 +118,19 @@ namespace HospitalAppointmentSystem.Services
 
             return viewModel;
         }
+
+        public async Task<bool> IsUserDoctorAsync(string? userId)
+        {
+            if (String.IsNullOrWhiteSpace(userId))
+            {
+                return false;
+            }
+
+            bool result = await this.doctorRepository
+                .GetAllAttached()
+                .AnyAsync(d => d.Id.ToString().ToLower() == userId);
+
+            return result;
+        }
     }
 }

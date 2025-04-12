@@ -8,12 +8,11 @@ namespace HospitalAppointmentSystem.Controllers
 {
     public class DoctorController : BaseController
     {
-        private readonly IDoctorService doctorService;
         private readonly ISpecializationService specializationService;
 
-        public DoctorController(IDoctorService doctorService, ISpecializationService specializationService)
+        public DoctorController(ISpecializationService specializationService, IDoctorService doctorService)
+            :base(doctorService)
         {
-            this.doctorService = doctorService;
             this.specializationService = specializationService;
         }
 
@@ -35,6 +34,7 @@ namespace HospitalAppointmentSystem.Controllers
             return View(viewModel);
         }
 
+        [HttpGet]
         public async Task<IActionResult> Details(string id, int weekOffset = 0)
         {
             Guid doctorGuid = Guid.Empty;

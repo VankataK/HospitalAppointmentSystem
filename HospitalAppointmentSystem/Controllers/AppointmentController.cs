@@ -1,5 +1,6 @@
 ﻿using HospitalAppointmentSystem.Data.Models;
 using HospitalAppointmentSystem.Infrastructure.Extensions;
+using HospitalAppointmentSystem.Services;
 using HospitalAppointmentSystem.Services.Interfaces;
 using HospitalAppointmentSystem.ViewModels.Appointment;
 using Microsoft.AspNetCore.Authorization;
@@ -10,13 +11,12 @@ namespace HospitalAppointmentSystem.Controllers
 {
     public class AppointmentController : BaseController
     {
-        private readonly IDoctorService doctorService;
         private readonly IAppointmentService appointmentService;
         private readonly UserManager<ApplicationUser> userManager;
 
-        public AppointmentController(IDoctorService doctorService, IAppointmentService appointmentService, UserManager<ApplicationUser> userManager)
+        public AppointmentController(IAppointmentService appointmentService, UserManager<ApplicationUser> userManager, IDoctorService doctorService)
+            :base(doctorService)
         {
-            this.doctorService = doctorService;
             this.appointmentService = appointmentService;
             this.userManager = userManager;
         }
