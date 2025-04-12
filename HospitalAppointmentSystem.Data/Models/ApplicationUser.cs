@@ -20,5 +20,14 @@ namespace HospitalAppointmentSystem.Data.Models
         [MaxLength(UserLastNameMaxLength)]
         [PersonalData]
         public string LastName { get; set; } = string.Empty;
+
+        [Required]
+        [PersonalData]
+        public string Gender { get; set; } = string.Empty;
+
+        [Required]
+        [Range(UserAgeMinValue, UserAgeMaxValue)]
+        [PersonalData]
+        public int Age { get; set; }
     }
 }

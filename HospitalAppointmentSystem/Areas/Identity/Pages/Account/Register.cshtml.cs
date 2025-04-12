@@ -3,16 +3,14 @@
 #nullable disable
 
 using System.ComponentModel.DataAnnotations;
-using System.Text;
-using System.Text.Encodings.Web;
 using HospitalAppointmentSystem.Data.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.WebUtilities;
 using static HospitalAppointmentSystem.Common.Constants.EntityConstants;
+using static HospitalAppointmentSystem.Common.Constants.EntityMessages;
 
 namespace HospitalAppointmentSystem.Areas.Identity.Pages.Account
 {
@@ -65,33 +63,42 @@ namespace HospitalAppointmentSystem.Areas.Identity.Pages.Account
         /// </summary>
         public class InputModel
         {
-            [Required]
-            [StringLength(UserFirstNameMaxLength, ErrorMessage = "The {0} must be between {2} and {1} characters.", MinimumLength = 2)]
-            [Display(Name = "First name")]
+            [Required(ErrorMessage = RequiredMessage)]
+            [StringLength(UserFirstNameMaxLength, ErrorMessage = "Името трябва да е между {2} и {1} знака.", MinimumLength = UserFirstNameMinLength)]
+            [Display(Name = "Име")]
             public string FirstName { get; set; } = string.Empty;
 
-            [Required]
-            [StringLength(UserLastNameMaxLength, ErrorMessage = "The {0} must be between {2} and {1} characters.", MinimumLength = 2)]
-            [Display(Name = "Last name")]
+            [Required(ErrorMessage = RequiredMessage)]
+            [StringLength(UserLastNameMaxLength, ErrorMessage = "Фамилията трябва да е между {2} и {1} знака.", MinimumLength = UserLastNameMinLength)]
+            [Display(Name = "Фамилия")]
             public string LastName { get; set; } = string.Empty;
+
+            [Required(ErrorMessage = RequiredMessage)]
+            [Display(Name = "Пол")]
+            public string Gender { get; set; }
+
+            [Required(ErrorMessage = RequiredMessage)]
+            [Range(UserAgeMinValue, UserAgeMaxValue, ErrorMessage = "Възрастта трябва да е между {1} и {2}.")]
+            [Display(Name = "Възраст")]
+            public int Age { get; set; }
 
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
-            [Required]
+            [Required(ErrorMessage = RequiredMessage)]
             [EmailAddress]
-            [Display(Name = "Email")]
+            [Display(Name = "Имейл")]
             public string Email { get; set; }
 
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
-            [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [Required(ErrorMessage = RequiredMessage)]
+            [StringLength(100, ErrorMessage = "Паролата трябва да е поне {2} и максимум {1} знака.", MinimumLength = 6)]
             [DataType(DataType.Password)]
-            [Display(Name = "Password")]
+            [Display(Name = "Парола")]
             public string Password { get; set; }
 
             /// <summary>
@@ -99,8 +106,8 @@ namespace HospitalAppointmentSystem.Areas.Identity.Pages.Account
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
             [DataType(DataType.Password)]
-            [Display(Name = "Confirm password")]
-            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+            [Display(Name = "Потвърждаване на паролата")]
+            [Compare("Password", ErrorMessage = "Паролите не съвпадат.")]
             public string ConfirmPassword { get; set; }
         }
 
@@ -120,6 +127,8 @@ namespace HospitalAppointmentSystem.Areas.Identity.Pages.Account
                 var user = CreateUser();
                 user.FirstName = Input.FirstName;
                 user.LastName = Input.LastName;
+                user.Gender = Input.Gender;
+                user.Age = Input.Age;
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
@@ -128,6 +137,8 @@ namespace HospitalAppointmentSystem.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
+
+                    await _userManager.AddToRoleAsync(user, "Patient");
 
                     //var userId = await _userManager.GetUserIdAsync(user);
                     //var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);

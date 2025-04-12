@@ -10,6 +10,10 @@
 
         public const int UserLastNameMaxLength = 50;
 
+        public const int UserAgeMinValue = 0;
+
+        public const int UserAgeMaxValue = 150;
+
         public const int SpecializationNameMinLength = 4;
                          
         public const int SpecializationNameMaxLength = 100;
