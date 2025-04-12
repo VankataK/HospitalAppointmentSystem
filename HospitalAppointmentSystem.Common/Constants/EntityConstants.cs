@@ -13,5 +13,9 @@
         public const int SpecializationNameMinLength = 4;
                          
         public const int SpecializationNameMaxLength = 100;
+
+        public const string RatingMinValue = "1";
+
+        public const string RatingMaxValue = "10";
     }
 }

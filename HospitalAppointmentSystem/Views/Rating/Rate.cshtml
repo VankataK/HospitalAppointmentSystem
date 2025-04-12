@@ -1,0 +1,65 @@
+﻿@model RatingViewModel
+
+@{
+    ViewData["Title"] = "Оцени преглед";
+}
+
+<h2 class="text-center mb-4">Оценка на преглед</h2>
+
+<div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+        <form asp-action="Rate" method="post" id="ratingForm">
+            @Html.AntiForgeryToken()
+
+            <input type="hidden" asp-for="AppointmentId" />
+            <input type="hidden" asp-for="Professionalism" id="Professionalism" />
+            <input type="hidden" asp-for="Attitude" id="Attitude" />
+
+            <div class="mb-4">
+                <label class="form-label d-block fw-bold">Професионализъм</label>
+                <div class="d-flex flex-wrap gap-2" id="professionalism-rating">
+                    @for (int i = 1; i <= 10; i++)
+                    {
+                        <button type="button" class="btn btn-outline-primary rating-btn" data-value="@i" data-target="Professionalism">@i</button>
+                    }
+                </div>
+                <span asp-validation-for="Professionalism" class="text-danger"></span>
+            </div>
+
+            <div class="mb-4">
+                <label class="form-label d-block fw-bold">Отношение</label>
+                <div class="d-flex flex-wrap gap-2" id="attitude-rating">
+                    @for (int i = 1; i <= 10; i++)
+                    {
+                        <button type="button" class="btn btn-outline-secondary rating-btn" data-value="@i" data-target="Attitude">@i</button>
+                    }
+                </div>
+                <span asp-validation-for="Attitude" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-success w-100 mt-1">Изпрати оценка</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.querySelectorAll('.rating-btn').forEach(btn => {
+            btn.addEventListener('click', function () {
+                const value = this.dataset.value;
+                const target = this.dataset.target;
+
+                document.getElementById(target).value = value;
+
+                const group = document.querySelectorAll(`[data-target='${target}']`);
+                group.forEach(b => b.classList.remove('active'));
+
+                this.classList.add('active');
+            });
+        });
+    </script>
+
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

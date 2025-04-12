@@ -2,6 +2,7 @@
 using HospitalAppointmentSystem.Data.Repository.Interfaces;
 using HospitalAppointmentSystem.Services.Interfaces;
 using HospitalAppointmentSystem.ViewModels.Appointment;
+using HospitalAppointmentSystem.ViewModels.Rating;
 using Microsoft.EntityFrameworkCore;
 
 namespace HospitalAppointmentSystem.Services
@@ -46,5 +47,34 @@ namespace HospitalAppointmentSystem.Services
 
             return appointments;
         }
+
+        public async Task<RatingViewModel?> GetAppointmentForRatingAsync(Guid appointmentId, Guid userId)
+        {
+            var appointment = await appointmentRepository
+            .GetAllAttached()
+            .Include(a => a.Rating)
+            .FirstOrDefaultAsync(a => a.Id == appointmentId && a.PatientId == userId);
+
+            if (appointment == null)
+            {
+                return null;
+            }
+
+            if (appointment.AppointmentDateTime > DateTime.Now)
+            {
+                return null;
+            }
+
+            if (appointment.Rating != null)
+            {
+                return null;
+            }
+
+            return new RatingViewModel
+            {
+                AppointmentId = appointmentId.ToString()
+            };
+        }
+
     }
 }
