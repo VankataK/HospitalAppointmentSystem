@@ -1,0 +1,12 @@
+[
+    {
+        "Id": "a2c8ed8e-207f-4bff-96ad-e60eb020b220",
+        "Name": "Admin",
+        "NormalizedName": "ADMIN"
+    },
+    {
+        "Id": "913c67ca-b617-487b-a742-5c2ad69bf257",
+        "Name": "Patient",
+        "NormalizedName": "PATIENT"
+    }
+]

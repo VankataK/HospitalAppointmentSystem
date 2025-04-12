@@ -1,5 +1,5 @@
 ﻿using HospitalAppointmentSystem.Data.Models;
-using HospitalAppointmentSystem.Data.SeedDb;
+using HospitalAppointmentSystem.Data.SeedData;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -13,23 +13,22 @@ namespace HospitalAppointmentSystem.Data
         {
             
         }
-
+        
         public DbSet<Appointment> Appointments { get; set; } = null!;
         public DbSet<Doctor> Doctors { get; set; } = null!;
         public DbSet<Rating> Ratings { get; set; } = null!;
         public DbSet<Specialization> Specializations { get; set; } = null!;
         public DbSet<Vacation> Vacations { get; set; } = null!;
-
+        
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            SeedData data = new SeedData();
-
-            builder.Entity<ApplicationUser>().HasData(data.AdminUser, data.FirstPatientUser, 
-                data.SecondPatientUser, data.FirstDoctorUser, data.SecondDoctorUser);
-            builder.Entity<IdentityRole<Guid>>().HasData(data.AdminRole, data.PatientRole);
-            builder.Entity<IdentityUserRole<Guid>>().HasData(data.UsersInRoles);
-            builder.Entity<Specialization>().HasData(data.CardiologySpecialization, data.NeurologySpecialization);
-            builder.Entity<Doctor>().HasData(data.FirstDoctor, data.SecondDoctor);
+            builder.Entity<ApplicationUser>().HasData(JsonSeeder.LoadJson<ApplicationUser>("users.json"));
+            builder.Entity<Doctor>().HasData(JsonSeeder.LoadJson<Doctor>("doctors.json"));
+            builder.Entity<Specialization>().HasData(JsonSeeder.LoadJson<Specialization>("specializations.json"));
+            builder.Entity<Appointment>().HasData(JsonSeeder.LoadJson<Appointment>("appointments.json"));
+            builder.Entity<Rating>().HasData(JsonSeeder.LoadJson<Rating>("ratings.json"));
+            builder.Entity<IdentityRole<Guid>>().HasData(JsonSeeder.LoadJson<IdentityRole<Guid>>("roles.json"));
+            builder.Entity<IdentityUserRole<Guid>>().HasData(JsonSeeder.LoadJson<IdentityUserRole<Guid>>("userRoles.json"));
             
             base.OnModelCreating(builder);
         }

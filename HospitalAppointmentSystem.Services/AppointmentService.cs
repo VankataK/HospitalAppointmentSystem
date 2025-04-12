@@ -36,6 +36,7 @@ namespace HospitalAppointmentSystem.Services
                 .Include(a => a.Doctor)
                 .ThenInclude(d => d.User)
                 .Where(a => a.PatientId == patientId)
+                .OrderByDescending(a => a.AppointmentDateTime)
                 .Select(a => new MyAppointmentsViewModel
                 {
                     Id = a.Id.ToString(),

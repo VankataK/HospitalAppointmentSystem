@@ -11,16 +11,6 @@ namespace HospitalAppointmentSystem.Data.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AlterColumn<string>(
-                name: "LastName",
-                table: "AspNetUsers",
-                type: "nvarchar(50)",
-                maxLength: 50,
-                nullable: false,
-                oldClrType: typeof(string),
-                oldType: "nvarchar(15)",
-                oldMaxLength: 15);
-
             migrationBuilder.CreateTable(
                 name: "Specializations",
                 columns: table => new
@@ -64,7 +54,8 @@ namespace HospitalAppointmentSystem.Data.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "Appointment Identifier"),
                     PatientId = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "Patient Identifier"),
                     DoctorId = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "Doctor Identifier"),
-                    AppointmentDateTime = table.Column<DateTime>(type: "datetime2", nullable: false, comment: "Appointment date and time")
+                    AppointmentDateTime = table.Column<DateTime>(type: "datetime2", nullable: false, comment: "Appointment date and time"),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -74,7 +65,7 @@ namespace HospitalAppointmentSystem.Data.Migrations
                         column: x => x.PatientId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Appointments_Doctors_DoctorId",
                         column: x => x.DoctorId,
@@ -167,16 +158,6 @@ namespace HospitalAppointmentSystem.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Specializations");
-
-            migrationBuilder.AlterColumn<string>(
-                name: "LastName",
-                table: "AspNetUsers",
-                type: "nvarchar(15)",
-                maxLength: 15,
-                nullable: false,
-                oldClrType: typeof(string),
-                oldType: "nvarchar(50)",
-                oldMaxLength: 50);
         }
     }
 }

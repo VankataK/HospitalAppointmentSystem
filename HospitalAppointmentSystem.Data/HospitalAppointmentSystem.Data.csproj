@@ -19,4 +19,8 @@
     <ProjectReference Include="..\HospitalAppointmentSystem.Common\HospitalAppointmentSystem.Common.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="SeedData\Json\" />
+  </ItemGroup>
+
 </Project>
