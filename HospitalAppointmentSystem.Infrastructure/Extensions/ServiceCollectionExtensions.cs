@@ -14,6 +14,7 @@ namespace HospitalAppointmentSystem.Common.Extensions
             services.AddScoped<IRepository<Doctor, Guid>, BaseRepository<Doctor, Guid>>();
             services.AddScoped<IRepository<Specialization, Guid>, BaseRepository<Specialization, Guid>>();
             services.AddScoped<IRepository<Appointment, Guid>, BaseRepository<Appointment, Guid>>();
+            services.AddScoped<IRepository<Vacation, Guid>, BaseRepository<Vacation, Guid>>();
             services.AddScoped<IRepository<Rating, Guid>, BaseRepository<Rating, Guid>>();
 
             return services;
@@ -25,6 +26,7 @@ namespace HospitalAppointmentSystem.Common.Extensions
             services.AddScoped<IDoctorService, DoctorService>();
             services.AddScoped<ISpecializationService, SpecializationService>();
             services.AddScoped<IAppointmentService, AppointmentService>();
+            services.AddScoped<IVacationService, VacationService>();
             services.AddScoped<IRatingService, RatingService>();
 
             return services;

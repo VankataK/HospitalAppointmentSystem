@@ -1,0 +1,42 @@
+﻿@model IEnumerable<VacationViewModel>
+
+@{
+    ViewData["Title"] = "Моите отпуски";
+}
+
+<h2 class="mb-4 text-center">Моите отпуски</h2>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info text-center">Нямате добавени отпуски.</div>
+}
+else
+{
+    <table class="table table-bordered table-striped">
+        <thead class="table-light">
+            <tr>
+                <th scope="col">Начална дата</th>
+                <th scope="col">Крайна дата</th>
+                <th scope="col">Дни</th>
+                <th scope="col">Действие</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var vacation in Model)
+            {
+                var days = (vacation.EndDate - vacation.StartDate).Days + 1;
+                <tr>
+                    <td>@vacation.StartDate.ToString("dd.MM.yyyy")</td>
+                    <td>@vacation.EndDate.ToString("dd.MM.yyyy")</td>
+                    <td>@days</td>
+                    <td>
+                        <form asp-action="DeleteVacation" method="post" asp-route-vacationId="@vacation.Id" onsubmit="return confirm('Сигурни ли сте, че искате да отмените отпуската?');">
+                            <button type="submit" class="btn btn-sm btn-danger">Отмени</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+

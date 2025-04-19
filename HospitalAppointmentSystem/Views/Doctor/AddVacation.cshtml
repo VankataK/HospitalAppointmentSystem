@@ -1,0 +1,20 @@
+﻿@model AddVacationViewModel
+
+<h2 class="mb-4">Добавяне на отпуска</h2>
+
+<form asp-action="AddVacation" method="post">
+    <div class="mb-3">
+        <label asp-for="StartDate" class="form-label"></label>
+        <input asp-for="StartDate" class="form-control" type="date" />
+        <span asp-validation-for="StartDate" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="EndDate" class="form-label"></label>
+        <input asp-for="EndDate" class="form-control" type="date" />
+        <span asp-validation-for="EndDate" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-success">Запази</button>
+</form>
+
