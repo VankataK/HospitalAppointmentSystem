@@ -76,6 +76,5 @@ namespace HospitalAppointmentSystem.Services
                 AppointmentId = appointmentId.ToString()
             };
         }
-
     }
 }

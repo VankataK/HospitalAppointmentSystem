@@ -1,0 +1,54 @@
+﻿@model DoctorScheduleViewModel
+
+@{
+    ViewData["Title"] = "График";
+    var offset = ViewBag.DayOffset ?? 0;
+    var currentDate = DateTime.Today.AddDays((int)offset);
+}
+
+<h2 class="text-center mb-4">
+    График на д-р @Model.DoctorName — @currentDate.ToString("dd.MM.yyyy (dddd)", new System.Globalization.CultureInfo("bg-BG"))
+</h2>
+
+<div class="d-flex justify-content-between mb-4">
+    @if (offset > 0)
+    {
+        <a asp-action="Schedule" asp-route-dayOffset="@(offset - 1)" class="btn btn-outline-primary">&larr; Предишен ден</a>
+    }
+    else
+    {
+        <span></span>
+    }
+
+    <a asp-action="Schedule" asp-route-dayOffset="@(offset + 1)" class="btn btn-outline-primary">Следващ ден &rarr;</a>
+</div>
+
+@if (!Model.Appointments.Any())
+{
+    <div class="alert alert-info text-center">Нямате записани часове за деня.</div>
+}
+else
+{
+    <div class="list-group">
+        @foreach (var appointment in Model.Appointments)
+        {
+            <div class="card shadow-sm mb-3">
+                <div class="card-body d-flex justify-content-between align-items-center">
+                    <div>
+                        <h5 class="card-title mb-1">@appointment.PatientName</h5>
+                        <p class="card-text text-muted mb-0">
+                            Пол: @appointment.Gender
+                        </p>
+                        <p class="card-text text-muted">
+                            Възраст: @appointment.Age г.
+                        </p>
+                    </div>
+                    <span class="badge @(appointment.Time < DateTime.Now.TimeOfDay ? "bg-secondary" : "bg-success") fs-5">
+                        @appointment.Time.ToString(@"hh\:mm")
+                    </span>
+                </div>
+            </div>
+        }
+
+    </div>
+}

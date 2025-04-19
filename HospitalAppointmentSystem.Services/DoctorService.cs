@@ -3,6 +3,7 @@ using HospitalAppointmentSystem.Data.Repository.Interfaces;
 using HospitalAppointmentSystem.Services.Interfaces;
 using HospitalAppointmentSystem.ViewModels.Doctor;
 using Microsoft.EntityFrameworkCore;
+using System.Globalization;
 
 namespace HospitalAppointmentSystem.Services
 {
@@ -131,6 +132,37 @@ namespace HospitalAppointmentSystem.Services
                 .AnyAsync(d => d.Id.ToString().ToLower() == userId);
 
             return result;
+        }
+
+        public async Task<DoctorScheduleViewModel> GetDoctorScheduleAsync(Guid doctorId, int dayOffset)
+        {
+            DateTime selectedDate = DateTime.Today.AddDays(dayOffset);
+
+            Doctor? doctor = await doctorRepository
+                .GetAllAttached()
+                .Include(d => d.User)
+                .Include(d => d.Appointments)
+                .ThenInclude(a => a.Patient)
+                .FirstOrDefaultAsync(d => d.Id == doctorId);
+
+            List<Appointment> appointments = doctor.Appointments
+                .Where(a => a.DoctorId == doctorId && a.AppointmentDateTime.Date == selectedDate)
+                .OrderBy(a => a.AppointmentDateTime)
+                .ToList();
+
+            DoctorScheduleViewModel viewModel = new DoctorScheduleViewModel
+            {
+                DoctorName = $"{doctor.User.FirstName} {doctor.User.LastName}",
+                Appointments = appointments.Select(a => new DoctorAppointmentViewModel
+                {
+                    Time = a.AppointmentDateTime.TimeOfDay,
+                    PatientName = $"{a.Patient.FirstName} {a.Patient.LastName}",
+                    Gender = a.Patient.Gender,
+                    Age = a.Patient.Age
+                }).ToList()
+            };
+
+            return viewModel;
         }
     }
 }

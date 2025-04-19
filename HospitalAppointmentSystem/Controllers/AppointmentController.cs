@@ -54,6 +54,7 @@ namespace HospitalAppointmentSystem.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Book(AppointmentConfirmationViewModel inputModel)
         {
             if (!ModelState.IsValid)
@@ -62,10 +63,6 @@ namespace HospitalAppointmentSystem.Controllers
             }
 
             string userId = this.userManager.GetUserId(User)!;
-            if (String.IsNullOrWhiteSpace(userId))
-            {
-                return this.RedirectToPage("/Identity/Account/Login");
-            }
 
             await this.appointmentService.AddAppointmentAsync(inputModel, userId);
 

@@ -28,7 +28,7 @@ else
                 {
                     var isPast = appointment.AppointmentDateTime < DateTime.Now;
                     <tr>
-                        <td>@appointment.DoctorName</td>
+                        <td>Д-р @appointment.DoctorName</td>
                         <td>@appointment.AppointmentDateTime.ToString("dd.MM.yyyy")</td>
                         <td>@appointment.AppointmentDateTime.ToString("HH:mm")</td>
                         <td>

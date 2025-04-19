@@ -7,5 +7,6 @@ namespace HospitalAppointmentSystem.Services.Interfaces
         Task<DoctorIndexViewModel?> GetDoctorByIdAsync(Guid id);
         Task<DoctorDetailsViewModel?> GetDoctorAvailabilityAsync(Guid doctorId, int weekOffset);
         Task<bool> IsUserDoctorAsync(string? userId);
+        Task<DoctorScheduleViewModel> GetDoctorScheduleAsync(Guid doctorId, int dayOffset);
     }
 }
