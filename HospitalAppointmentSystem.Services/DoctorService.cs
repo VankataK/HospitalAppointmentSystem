@@ -23,7 +23,9 @@ namespace HospitalAppointmentSystem.Services
             IQueryable<Doctor> doctors = this.doctorRepository
                 .GetAllAttached()
                 .Include(d => d.User)
-                .Include(d => d.Specialization);
+                .Include(d => d.Specialization)
+                .Include(d => d.Appointments)
+                .ThenInclude(a => a.Rating);
 
             Guid specGuid = Guid.Empty;
 
@@ -37,7 +39,15 @@ namespace HospitalAppointmentSystem.Services
                 {
                     Id = d.Id.ToString(),
                     FullName = $"{d.User.FirstName} {d.User.LastName}",
-                    SpecializationName = d.Specialization.Name
+                    SpecializationName = d.Specialization.Name,
+                    AverageProfessionalism = d.Appointments
+                    .Where(a => a.Rating != null).Count() >= 20
+                    ? d.Appointments.Where(a => a.Rating != null).Average(a => a.Rating!.Professionalism).ToString("F2")
+                    : "-",
+                    AverageAttitude = d.Appointments
+                    .Where(a => a.Rating != null).Count() >= 20
+                    ? d.Appointments.Where(a => a.Rating != null).Average(a => a.Rating!.Attitude).ToString("F2")
+                    : "-"
                 })
                 .ToListAsync();
         }

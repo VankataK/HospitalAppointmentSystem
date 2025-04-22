@@ -1,7 +1,7 @@
 ﻿@model DoctorListViewModel
 
 @{
-    ViewData["Title"] = "Лекари";
+    ViewData["Title"] = "Доктори";
 }
 
 <h2 class="text-center my-4">Изберете специалност</h2>
@@ -15,7 +15,7 @@
 
 @if (!Model.Doctors.Any())
 {
-    <div class="alert alert-info text-center">Няма налични лекари за избраната специалност.</div>
+    <div class="alert alert-info text-center">Няма налични доктори за избраната специалност.</div>
 }
 else
 {
@@ -26,10 +26,18 @@ else
                 <div class="card h-100 shadow-sm">
                     <div class="card-body">
                         <h5 class="card-title">Д-р @doctor.FullName</h5>
-                        <p class="card-text">@doctor.SpecializationName</p>
+                        <p class="card-subtitle mb-3">@doctor.SpecializationName</p>
+                        <div class="card-text mb-1">
+                            <i class="bi bi-star-fill text-warning me-2"></i>
+                            <span>Професионализъм: <strong>@doctor.AverageProfessionalism</strong></span>
+                        </div>
+                        <div class="card-text mb-1">
+                            <i class="bi bi-chat-left-dots text-secondary me-2"></i>
+                            <span>Отношение: <strong>@doctor.AverageAttitude</strong></span>
+                        </div>
                         @if (this.User?.Identity?.IsAuthenticated ?? false)
                         {
-                            <a asp-action="Details" asp-route-id="@doctor.Id" class="btn btn-primary">Запази час</a>
+                            <a asp-action="Details" asp-route-id="@doctor.Id" class="btn btn-primary w-100">Запази час</a>
                         }
                     </div>
                 </div>

@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HospitalAppointmentSystem.Controllers
 {
+    [Authorize(Roles = "Patient")]
     public class AppointmentController : BaseController
     {
         private readonly IAppointmentService appointmentService;
@@ -54,7 +55,6 @@ namespace HospitalAppointmentSystem.Controllers
         }
 
         [HttpPost]
-        [Authorize]
         public async Task<IActionResult> Book(AppointmentConfirmationViewModel inputModel)
         {
             if (!ModelState.IsValid)
@@ -70,7 +70,6 @@ namespace HospitalAppointmentSystem.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Patient")]
         public async Task<IActionResult> MyAppointments()
         {
             string? userId = User.GetUserId();
