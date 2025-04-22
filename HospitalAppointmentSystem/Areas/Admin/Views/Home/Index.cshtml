@@ -1,0 +1,27 @@
+﻿@{
+    ViewData["Title"] = "Админ Панел";
+}
+
+<h2 class="text-center my-4">Административен Панел</h2>
+
+<div class="row justify-content-center text-center">
+    <div class="col-md-4 mb-6">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">Добави лекар</h5>
+                <p class="card-text">Създай нов лекар с профил и специализация.</p>
+                <a asp-area="Admin" asp-controller="DoctorManagment" asp-action="AddDoctor" class="btn btn-primary">Добави лекар</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 mb-6">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">Всички оценки</h5>
+                <p class="card-text">Виж всички оценки, дадени от пациенти.</p>
+                <a asp-area="Admin" asp-controller="RatingManagment" asp-action="AllRatings" class="btn btn-primary">Прегледай оценки</a>
+            </div>
+        </div>
+    </div>
+</div>

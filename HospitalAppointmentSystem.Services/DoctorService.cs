@@ -2,18 +2,20 @@
 using HospitalAppointmentSystem.Data.Repository.Interfaces;
 using HospitalAppointmentSystem.Services.Interfaces;
 using HospitalAppointmentSystem.ViewModels.Doctor;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using System.Globalization;
 
 namespace HospitalAppointmentSystem.Services
 {
     public class DoctorService : BaseService, IDoctorService
     {
         private readonly IRepository<Doctor, Guid> doctorRepository;
+        private readonly UserManager<ApplicationUser> userManager;
 
-        public DoctorService(IRepository<Doctor, Guid> doctorRepository)
+        public DoctorService(IRepository<Doctor, Guid> doctorRepository, UserManager<ApplicationUser> userManager)
         {
             this.doctorRepository = doctorRepository;
+            this.userManager = userManager;
         }
 
         public async Task<IEnumerable<DoctorIndexViewModel>> GetDoctorsBySpecializationAsync(DoctorListViewModel inputModel)
@@ -163,6 +165,46 @@ namespace HospitalAppointmentSystem.Services
             };
 
             return viewModel;
+        }
+
+        public async Task<bool> AddDoctorAsync(AddDoctorViewModel inputModel)
+        {
+            Guid specializationGuid = Guid.Empty;
+            if (!IsGuidValid(inputModel.SpecializationId, ref specializationGuid))
+            {
+                return false;
+            }
+
+            ApplicationUser user = new ApplicationUser
+            {
+                Id = Guid.NewGuid(),
+                Email = inputModel.Email,
+                UserName = inputModel.Email,
+                NormalizedEmail = inputModel.Email.ToUpper(),
+                NormalizedUserName = inputModel.Email.ToUpper(),
+                FirstName = inputModel.FirstName,
+                LastName = inputModel.LastName,
+                Gender = inputModel.Gender,
+                Age = inputModel.Age,
+                SecurityStamp = Guid.NewGuid().ToString()
+            };
+
+            IdentityResult result = await userManager.CreateAsync(user, inputModel.Password);
+
+            if (!result.Succeeded)
+            {
+                return false;
+            }
+
+            Doctor doctor = new Doctor
+            {
+                Id = user.Id,
+                SpecializationId = specializationGuid
+            };
+
+            await this.doctorRepository.AddAsync(doctor);
+
+            return true;
         }
     }
 }

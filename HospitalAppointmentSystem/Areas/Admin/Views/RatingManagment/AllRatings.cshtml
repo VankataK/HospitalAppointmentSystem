@@ -1,0 +1,53 @@
+﻿@model RatingFilterViewModel
+
+<h2 class="mb-4 text-center">Справка за индидуално поставените оценки</h2>
+
+<form method="get" class="row g-3 mb-4">
+    <div class="col-md-3">
+        <input type="text" name="doctorName" value="@Model.DoctorName" class="form-control" placeholder="Име на доктор" />
+    </div>
+    <div class="col-md-3">
+        <input type="text" name="patientName" value="@Model.PatientName" class="form-control" placeholder="Име на пациент" />
+    </div>
+    <div class="col-md-2">
+        <input type="date" name="fromDate" value="@(Model.FromDate?.ToString("yyyy-MM-dd"))" class="form-control" />
+    </div>
+    <div class="col-md-2">
+        <input type="date" name="toDate" value="@(Model.ToDate?.ToString("yyyy-MM-dd"))" class="form-control" />
+    </div>
+    <div class="col-md-2">
+        <button type="submit" class="btn btn-primary w-100">Филтрирай</button>
+    </div>
+</form>
+
+@if (!Model.Ratings.Any())
+{
+    <div class="alert alert-info text-center">Няма намерени оценки.</div>
+}
+else
+{
+    <table class="table table-bordered table-striped">
+        <thead class="table-light">
+            <tr>
+                <th>Дата и час</th>
+                <th>Доктор</th>
+                <th>Пациент</th>
+                <th>Професионализъм</th>
+                <th>Отношение</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var r in Model.Ratings)
+            {
+                <tr>
+                    <td>@r.AppointmentDateTime.ToString("dd.MM.yyyy HH:mm")</td>
+                    <td>@r.DoctorName</td>
+                    <td>@r.PatientName</td>
+                    <td>@r.Professionalism</td>
+                    <td>@r.Attitude</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+

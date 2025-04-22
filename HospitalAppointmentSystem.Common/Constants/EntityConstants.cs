@@ -10,7 +10,7 @@
 
         public const int UserLastNameMaxLength = 50;
 
-        public const int UserAgeMinValue = 0;
+        public const int UserAgeMinValue = 18;
 
         public const int UserAgeMaxValue = 150;
 
