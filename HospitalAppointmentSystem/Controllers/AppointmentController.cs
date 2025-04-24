@@ -1,11 +1,11 @@
-﻿using HospitalAppointmentSystem.Data.Models;
-using HospitalAppointmentSystem.Infrastructure.Extensions;
-using HospitalAppointmentSystem.Services;
-using HospitalAppointmentSystem.Services.Interfaces;
-using HospitalAppointmentSystem.ViewModels.Appointment;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using HospitalAppointmentSystem.Data.Models;
+using HospitalAppointmentSystem.Infrastructure.Extensions;
+using HospitalAppointmentSystem.Services.Interfaces;
+using HospitalAppointmentSystem.ViewModels.Appointment;
+using HospitalAppointmentSystem.ViewModels.Doctor;
 
 namespace HospitalAppointmentSystem.Controllers
 {
@@ -37,7 +37,7 @@ namespace HospitalAppointmentSystem.Controllers
                 return RedirectToAction("Index", "Doctor");
             }
 
-            var doctor = await doctorService.GetDoctorByIdAsync(doctorGuid);
+            DoctorIndexViewModel? doctor = await doctorService.GetDoctorByIdAsync(doctorGuid);
             if (doctor == null)
             {
                 return RedirectToAction("Index", "Doctor");
@@ -55,18 +55,18 @@ namespace HospitalAppointmentSystem.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Book(AppointmentConfirmationViewModel inputModel)
+        public async Task<IActionResult> Book(AppointmentConfirmationViewModel model)
         {
             if (!ModelState.IsValid)
             {
-                return View(inputModel);
+                return View(model);
             }
 
             string userId = this.userManager.GetUserId(User)!;
 
-            await this.appointmentService.AddAppointmentAsync(inputModel, userId);
+            await this.appointmentService.AddAppointmentAsync(model, userId);
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction(nameof(MyAppointments));
         }
 
         [HttpGet]
@@ -84,8 +84,8 @@ namespace HospitalAppointmentSystem.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            IEnumerable<MyAppointmentsViewModel> appointments = await this.appointmentService
-                .GetAppointmentsByPatientIdAsync(userGuid);
+            IEnumerable<MyAppointmentsViewModel> appointments = 
+                await this.appointmentService.GetAppointmentsByPatientIdAsync(userGuid);
 
             return View(appointments);
         }

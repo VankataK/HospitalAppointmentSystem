@@ -11,5 +11,6 @@ namespace HospitalAppointmentSystem.Services.Interfaces
         Task<bool> IsUserDoctorAsync(string? userId);
         Task<DoctorScheduleViewModel> GetDoctorScheduleAsync(Guid doctorId, int dayOffset);
         Task<bool> AddDoctorAsync(AddDoctorViewModel inputModel);
+        Task<bool> IsHavingAppointmentsAsync(Guid doctorId, DateTime fromDate, DateTime toDate);
     }
 }

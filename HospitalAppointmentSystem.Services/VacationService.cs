@@ -8,6 +8,7 @@ namespace HospitalAppointmentSystem.Services
 {
     public class VacationService : BaseService, IVacationService
     {
+        private readonly IRepository<Appointment, Guid> appointmentRepository;
         private readonly IRepository<Vacation, Guid> vacationRepository;
 
         public VacationService(IRepository<Vacation, Guid> vacationRepository)

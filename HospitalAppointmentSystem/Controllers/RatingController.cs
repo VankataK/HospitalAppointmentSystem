@@ -1,9 +1,8 @@
-﻿using HospitalAppointmentSystem.Infrastructure.Extensions;
-using HospitalAppointmentSystem.Services;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using HospitalAppointmentSystem.Infrastructure.Extensions;
 using HospitalAppointmentSystem.Services.Interfaces;
 using HospitalAppointmentSystem.ViewModels.Rating;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
 
 namespace HospitalAppointmentSystem.Controllers
 {
@@ -23,7 +22,7 @@ namespace HospitalAppointmentSystem.Controllers
         [HttpGet]
         public async Task<IActionResult> Rate(string appointmentId)
         {
-            Guid userId = Guid.Parse(User.GetUserId()!);
+            Guid userId = Guid.Parse(this.User.GetUserId()!);
 
             Guid appointmentGuid = Guid.Empty;
             if(!IsGuidValid(appointmentId, ref appointmentGuid))
@@ -31,29 +30,30 @@ namespace HospitalAppointmentSystem.Controllers
                 return RedirectToAction("MyAppointments", "Appointment");
             }
 
-            RatingViewModel? viewModel = await appointmentService.GetAppointmentForRatingAsync(appointmentGuid, userId);
+            RatingViewModel? model = 
+                await appointmentService.GetAppointmentForRatingAsync(appointmentGuid, userId);
 
-            if (viewModel == null)
+            if (model == null)
             {
                 return RedirectToAction("MyAppointments", "Appointment");
             }
 
-            return View(viewModel);
+            return View(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Rate(RatingViewModel viewModel)
+        public async Task<IActionResult> Rate(RatingViewModel model)
         {
             if (!ModelState.IsValid)
             {
-                return View(viewModel);
+                return View(model);
             }
 
-            bool result = await this.ratingService.SubmitRatingAsync(viewModel);
+            bool result = await this.ratingService.SubmitRatingAsync(model);
 
             if (result == false)
             {
-                return View(viewModel);
+                return View(model);
             }
 
             return RedirectToAction("MyAppointments", "Appointment");

@@ -1,10 +1,9 @@
-﻿using HospitalAppointmentSystem.Data.Models;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using HospitalAppointmentSystem.Data.Models;
 using HospitalAppointmentSystem.Data.Repository.Interfaces;
 using HospitalAppointmentSystem.Services.Interfaces;
 using HospitalAppointmentSystem.ViewModels.Doctor;
-using HospitalAppointmentSystem.ViewModels.Specialization;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 
 namespace HospitalAppointmentSystem.Services
 {
@@ -21,7 +20,7 @@ namespace HospitalAppointmentSystem.Services
 
         public async Task<IEnumerable<DoctorAdminViewModel>> GetAllOrderedByNameAsync()
         {
-            return await this.doctorRepository
+            IEnumerable<DoctorAdminViewModel> doctors = await this.doctorRepository
                 .GetAllAttached()
                 .Include(d => d.User)
                 .Include(d => d.Specialization)
@@ -37,6 +36,8 @@ namespace HospitalAppointmentSystem.Services
                     Specialization = d.Specialization.Name
                 })
                 .ToListAsync();
+
+            return doctors;
         }
 
         public async Task<IEnumerable<DoctorIndexViewModel>> GetDoctorsBySpecializationAsync(DoctorListViewModel inputModel)
@@ -236,6 +237,19 @@ namespace HospitalAppointmentSystem.Services
                 .AnyAsync(d => d.Id.ToString().ToLower() == userId);
 
             return result;
+        }
+
+        public async Task<bool> IsHavingAppointmentsAsync(Guid doctorId, DateTime fromDate, DateTime toDate)
+        {
+            Doctor? doctor = await this.doctorRepository
+                .GetAllAttached()
+                .Include(d => d.Appointments)
+                .FirstOrDefaultAsync(d => d.Id == doctorId);
+
+            return doctor!.Appointments
+                .Any(a =>
+                a.AppointmentDateTime.Date >= fromDate.Date &&
+                a.AppointmentDateTime.Date <= toDate.Date);
         }
     }
 }

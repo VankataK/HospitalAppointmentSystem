@@ -1,6 +1,4 @@
-using HospitalAppointmentSystem.ViewModels;
 using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
 
 namespace HospitalAppointmentSystem.Controllers
 {

@@ -1,8 +1,8 @@
-﻿using HospitalAppointmentSystem.Controllers;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using HospitalAppointmentSystem.Controllers;
 using HospitalAppointmentSystem.Services.Interfaces;
 using HospitalAppointmentSystem.ViewModels.Specialization;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
 using static HospitalAppointmentSystem.Common.Constants.ApplicationConstants;
 
 namespace HospitalAppointmentSystem.Areas.Admin.Controllers

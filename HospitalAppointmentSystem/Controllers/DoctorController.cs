@@ -1,16 +1,16 @@
-﻿using HospitalAppointmentSystem.Data.Models;
-using HospitalAppointmentSystem.Infrastructure.Extensions;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using HospitalAppointmentSystem.Data.Models;
 using HospitalAppointmentSystem.Services.Interfaces;
 using HospitalAppointmentSystem.ViewModels.Doctor;
 using HospitalAppointmentSystem.ViewModels.Specialization;
 using HospitalAppointmentSystem.ViewModels.Vacation;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using static HospitalAppointmentSystem.Common.Constants.ApplicationConstants;
 
 namespace HospitalAppointmentSystem.Controllers
 {
+    [Authorize]
     public class DoctorController : BaseController
     {
         private readonly ISpecializationService specializationService;
@@ -26,6 +26,7 @@ namespace HospitalAppointmentSystem.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> Index(DoctorListViewModel inputModel)
         {
             IEnumerable<DoctorIndexViewModel> doctors =
@@ -33,17 +34,18 @@ namespace HospitalAppointmentSystem.Controllers
             IEnumerable<SpecializationViewModel> specializations = 
                 await this.specializationService.GetAllAsync();
 
-            DoctorListViewModel viewModel = new DoctorListViewModel
+            DoctorListViewModel model = new DoctorListViewModel
             {
                 SelectedSpecializationId = inputModel.SelectedSpecializationId,
                 Doctors = doctors,
                 Specializations = specializations
             };
 
-            return View(viewModel);
+            return View(model);
         }
 
         [HttpGet]
+        [Authorize(Roles = PatientRoleName)]
         public async Task<IActionResult> Details(string id, int weekOffset = 0)
         {
             Guid doctorGuid = Guid.Empty;
@@ -52,32 +54,32 @@ namespace HospitalAppointmentSystem.Controllers
                 return RedirectToAction(nameof(Index)); 
             }
 
-            DoctorDetailsViewModel? viewModel = await doctorService.GetDoctorAvailabilityAsync(doctorGuid, weekOffset);
-            if (viewModel == null)
+            DoctorDetailsViewModel? model = 
+                await doctorService.GetDoctorAvailabilityAsync(doctorGuid, weekOffset);
+            if (model == null)
             {
                 return RedirectToAction(nameof(Index));
             }
 
             ViewBag.WeekOffset = weekOffset;
 
-            return View(viewModel);
+            return View(model);
         }
 
         [HttpGet]
-        [Authorize]
         public async Task<IActionResult> Schedule(int dayOffset = 0)
         {
             bool isDoctor = await this.IsUserDoctorAsync();
             if (!isDoctor)
             {
-                return this.RedirectToAction(nameof(Index));
+                return this.RedirectToAction("Index", "Home");
             }
 
             string doctorId = this.userManager.GetUserId(User)!;
             Guid doctorGuid = Guid.Empty;
             if (!IsGuidValid(doctorId, ref doctorGuid))
             {
-                return this.RedirectToAction(nameof(Index));
+                return this.RedirectToAction("Index", "Home");
             }
 
             if (dayOffset < 0)
@@ -85,7 +87,8 @@ namespace HospitalAppointmentSystem.Controllers
                 return this.RedirectToAction(nameof(Schedule), new { dayOffset = 0 });
             }
 
-            DoctorScheduleViewModel model = await doctorService.GetDoctorScheduleAsync(doctorGuid, dayOffset);
+            DoctorScheduleViewModel model = 
+                await doctorService.GetDoctorScheduleAsync(doctorGuid, dayOffset);
             
             ViewBag.DayOffset = dayOffset;
 
@@ -98,18 +101,18 @@ namespace HospitalAppointmentSystem.Controllers
             bool isDoctor = await this.IsUserDoctorAsync();
             if (!isDoctor)
             {
-                return this.RedirectToAction(nameof(Index));
+                return this.RedirectToAction("Index", "Home");
             }
 
             string doctorId = this.userManager.GetUserId(User)!;
             Guid doctorGuid = Guid.Empty;
             if (!IsGuidValid(doctorId, ref doctorGuid))
             {
-                return this.RedirectToAction(nameof(Index));
+                return this.RedirectToAction("Index", "Home");
             }
 
-            IEnumerable<VacationViewModel> vacations = await this.vacationService
-                .GetVacationsByDoctorId(doctorGuid);
+            IEnumerable<VacationViewModel> vacations = 
+                await this.vacationService.GetVacationsByDoctorId(doctorGuid);
 
             return View(vacations);
         }
@@ -120,20 +123,20 @@ namespace HospitalAppointmentSystem.Controllers
             bool isDoctor = await this.IsUserDoctorAsync();
             if (!isDoctor)
             {
-                return this.RedirectToAction(nameof(Index));
+                return this.RedirectToAction("Index", "Home");
             }
 
-            AddVacationViewModel viewModel =  new AddVacationViewModel
+            AddVacationViewModel model =  new AddVacationViewModel
             {
                 StartDate = DateTime.Today,
                 EndDate = DateTime.Today.AddDays(1)
             };
 
-            return View(viewModel);
+            return View(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddVacation(AddVacationViewModel viewModel)
+        public async Task<IActionResult> AddVacation(AddVacationViewModel model)
         {
             bool isDoctor = await this.IsUserDoctorAsync();
             if (!isDoctor)
@@ -141,20 +144,29 @@ namespace HospitalAppointmentSystem.Controllers
                 return this.RedirectToAction(nameof(Index));
             }
 
-            if (!ModelState.IsValid || viewModel.EndDate < viewModel.StartDate)
+            if (!ModelState.IsValid || model.EndDate < model.StartDate)
             {
                 ModelState.AddModelError(string.Empty, "Крайната дата трябва да е след началната.");
-                return View(viewModel);
+                return View(model);
             }
 
             string doctorId = this.userManager.GetUserId(User)!;
             Guid doctorGuid = Guid.Empty;
             if (!IsGuidValid(doctorId, ref doctorGuid))
             {
-                return this.RedirectToAction(nameof(Index));
+                return this.RedirectToAction("Index", "Home");
             }
 
-            await this.vacationService.AddVacationAsync(viewModel, doctorGuid);
+            bool hasAppointments = 
+                await this.doctorService.IsHavingAppointmentsAsync(doctorGuid, model.StartDate, model.EndDate);
+
+            if (hasAppointments)
+            {
+                ModelState.AddModelError(string.Empty, "Имате записани прегледи в този период.");
+                return View(model);
+            }
+
+            await this.vacationService.AddVacationAsync(model, doctorGuid);
 
             TempData["Success"] = "Успешно добавена отпуска.";
             return RedirectToAction(nameof(MyVacations));
@@ -166,14 +178,14 @@ namespace HospitalAppointmentSystem.Controllers
             bool isDoctor = await this.IsUserDoctorAsync();
             if (!isDoctor)
             {
-                return this.RedirectToAction(nameof(Index));
+                return this.RedirectToAction("Index", "Home");
             }
 
             string doctorId = this.userManager.GetUserId(User)!;
             Guid doctorGuid = Guid.Empty;
             if (!IsGuidValid(doctorId, ref doctorGuid))
             {
-                return this.RedirectToAction(nameof(Index));
+                return this.RedirectToAction("Index", "Home");
             }
 
             Guid vacationGuid = Guid.Empty;
@@ -182,7 +194,7 @@ namespace HospitalAppointmentSystem.Controllers
                 return this.RedirectToAction(nameof(MyVacations));
             }
 
-            Vacation vacation = await this.vacationService.GetVacationById(vacationGuid);
+            Vacation? vacation = await this.vacationService.GetVacationById(vacationGuid);
 
             if (vacation == null)
             {

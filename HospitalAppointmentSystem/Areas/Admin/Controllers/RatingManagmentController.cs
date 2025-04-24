@@ -1,7 +1,7 @@
-﻿using HospitalAppointmentSystem.Services.Interfaces;
-using HospitalAppointmentSystem.ViewModels.Rating;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using HospitalAppointmentSystem.Services.Interfaces;
+using HospitalAppointmentSystem.ViewModels.Rating;
 using static HospitalAppointmentSystem.Common.Constants.ApplicationConstants;
 
 namespace HospitalAppointmentSystem.Areas.Admin.Controllers
@@ -19,7 +19,8 @@ namespace HospitalAppointmentSystem.Areas.Admin.Controllers
 
         public async Task<IActionResult> AllRatings(RatingFilterViewModel inputModel)
         {
-            IEnumerable<RatingAdminViewModel> ratings = await this.ratingService.GetAllRatingsAsync(inputModel);
+            IEnumerable<RatingAdminViewModel> ratings = 
+                await this.ratingService.GetAllRatingsAsync(inputModel);
 
             RatingFilterViewModel model = new RatingFilterViewModel
             {

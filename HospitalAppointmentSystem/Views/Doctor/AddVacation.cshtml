@@ -1,5 +1,18 @@
 ﻿@model AddVacationViewModel
 
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger alert-dismissible fade show text-center mx-3 mt-3" role="alert">
+        <ul>
+            @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+            {
+                <li>@error.ErrorMessage</li>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            }
+        </ul>
+    </div>
+}
+
 <h2 class="mb-4">Добавяне на отпуска</h2>
 
 <form asp-action="AddVacation" method="post">

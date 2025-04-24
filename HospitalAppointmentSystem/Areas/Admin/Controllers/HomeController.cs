@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using static HospitalAppointmentSystem.Common.Constants.ApplicationConstants;
+
 namespace HospitalAppointmentSystem.Areas.Admin.Controllers
 {
     [Area(AdminRoleName)]

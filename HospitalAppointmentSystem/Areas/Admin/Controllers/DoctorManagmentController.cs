@@ -1,10 +1,11 @@
-﻿using HospitalAppointmentSystem.Controllers;
-using HospitalAppointmentSystem.Services.Interfaces;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using HospitalAppointmentSystem.Controllers;
+using HospitalAppointmentSystem.Services.Interfaces;
 using HospitalAppointmentSystem.ViewModels.Doctor;
-using static HospitalAppointmentSystem.Common.Constants.ApplicationConstants;
 using HospitalAppointmentSystem.ViewModels.Specialization;
+using static HospitalAppointmentSystem.Common.Constants.ApplicationConstants;
+
 namespace HospitalAppointmentSystem.Areas.Admin.Controllers
 {
     [Area(AdminRoleName)]
@@ -22,7 +23,8 @@ namespace HospitalAppointmentSystem.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> AllDoctors()
         {
-            var doctors = await doctorService.GetAllOrderedByNameAsync();
+            IEnumerable<DoctorAdminViewModel> doctors = 
+                await doctorService.GetAllOrderedByNameAsync();
 
             return View(doctors);
         }
@@ -33,12 +35,12 @@ namespace HospitalAppointmentSystem.Areas.Admin.Controllers
             IEnumerable<SpecializationViewModel> specializations = 
                 await this.specializationService.GetAllAsync();
 
-            AddDoctorViewModel viewModel = new AddDoctorViewModel
+            AddDoctorViewModel model = new AddDoctorViewModel
             {
                 Specializations = specializations
             };
 
-            return View(viewModel);
+            return View(model);
         }
 
         [HttpPost]

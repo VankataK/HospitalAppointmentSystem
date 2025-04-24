@@ -1,9 +1,9 @@
-﻿using HospitalAppointmentSystem.Data.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using HospitalAppointmentSystem.Data.Models;
 using HospitalAppointmentSystem.Data.Repository.Interfaces;
 using HospitalAppointmentSystem.Services.Interfaces;
 using HospitalAppointmentSystem.ViewModels.Appointment;
 using HospitalAppointmentSystem.ViewModels.Rating;
-using Microsoft.EntityFrameworkCore;
 
 namespace HospitalAppointmentSystem.Services
 {
@@ -14,19 +14,6 @@ namespace HospitalAppointmentSystem.Services
         public AppointmentService(IRepository<Appointment, Guid> appointmentRepository)
         {
             this.appointmentRepository = appointmentRepository;
-        }
-
-        public async Task AddAppointmentAsync(AppointmentConfirmationViewModel inputModel, string patientId)
-        {
-            Appointment appointment = new Appointment
-            {
-                Id = Guid.NewGuid(),
-                PatientId = Guid.Parse(patientId),
-                DoctorId = Guid.Parse(inputModel.DoctorId),
-                AppointmentDateTime = inputModel.AppointmentDateTime,
-            };
-
-            await this.appointmentRepository.AddAsync(appointment);
         }
 
         public async Task<IEnumerable<MyAppointmentsViewModel>> GetAppointmentsByPatientIdAsync(Guid patientId)
@@ -51,7 +38,7 @@ namespace HospitalAppointmentSystem.Services
 
         public async Task<RatingViewModel?> GetAppointmentForRatingAsync(Guid appointmentId, Guid userId)
         {
-            var appointment = await appointmentRepository
+            Appointment? appointment = await appointmentRepository
             .GetAllAttached()
             .Include(a => a.Rating)
             .FirstOrDefaultAsync(a => a.Id == appointmentId && a.PatientId == userId);
@@ -75,6 +62,19 @@ namespace HospitalAppointmentSystem.Services
             {
                 AppointmentId = appointmentId.ToString()
             };
+        }
+        
+        public async Task AddAppointmentAsync(AppointmentConfirmationViewModel inputModel, string patientId)
+        {
+            Appointment appointment = new Appointment
+            {
+                Id = Guid.NewGuid(),
+                PatientId = Guid.Parse(patientId),
+                DoctorId = Guid.Parse(inputModel.DoctorId),
+                AppointmentDateTime = inputModel.AppointmentDateTime,
+            };
+
+            await this.appointmentRepository.AddAsync(appointment);
         }
     }
 }
