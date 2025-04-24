@@ -1,10 +1,10 @@
 ﻿using HospitalAppointmentSystem.Controllers;
 using HospitalAppointmentSystem.Services.Interfaces;
-using HospitalAppointmentSystem.ViewModels.Doctor;
-using HospitalAppointmentSystem.ViewModels.Specialization;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using HospitalAppointmentSystem.ViewModels.Doctor;
 using static HospitalAppointmentSystem.Common.Constants.ApplicationConstants;
+using HospitalAppointmentSystem.ViewModels.Specialization;
 namespace HospitalAppointmentSystem.Areas.Admin.Controllers
 {
     [Area(AdminRoleName)]
@@ -20,9 +20,18 @@ namespace HospitalAppointmentSystem.Areas.Admin.Controllers
         }
 
         [HttpGet]
+        public async Task<IActionResult> AllDoctors()
+        {
+            var doctors = await doctorService.GetAllOrderedByNameAsync();
+
+            return View(doctors);
+        }
+
+        [HttpGet]
         public async Task<IActionResult> AddDoctor()
         {
-            IEnumerable<SpecializationViewModel> specializations = await this.specializationService.GetAllAsync();
+            IEnumerable<SpecializationViewModel> specializations = 
+                await this.specializationService.GetAllAsync();
 
             AddDoctorViewModel viewModel = new AddDoctorViewModel
             {
@@ -50,7 +59,7 @@ namespace HospitalAppointmentSystem.Areas.Admin.Controllers
             }
 
             TempData["Success"] = "Докторът беше успешно добавен.";
-            return RedirectToAction("AllDoctors");
+            return RedirectToAction(nameof(AllDoctors));
         }
     }
 }

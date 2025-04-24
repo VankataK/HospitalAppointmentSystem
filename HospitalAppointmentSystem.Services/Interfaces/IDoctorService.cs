@@ -1,8 +1,10 @@
 ﻿using HospitalAppointmentSystem.ViewModels.Doctor;
+using HospitalAppointmentSystem.ViewModels.Specialization;
 namespace HospitalAppointmentSystem.Services.Interfaces
 {
     public interface IDoctorService
     {
+        Task<IEnumerable<DoctorAdminViewModel>> GetAllOrderedByNameAsync();
         Task<IEnumerable<DoctorIndexViewModel>> GetDoctorsBySpecializationAsync(DoctorListViewModel inputModel);
         Task<DoctorIndexViewModel?> GetDoctorByIdAsync(Guid id);
         Task<DoctorDetailsViewModel?> GetDoctorAvailabilityAsync(Guid doctorId, int weekOffset);

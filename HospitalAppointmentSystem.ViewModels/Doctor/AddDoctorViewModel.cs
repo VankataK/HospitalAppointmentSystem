@@ -36,13 +36,15 @@ namespace HospitalAppointmentSystem.ViewModels.Doctor
         [Display(Name = "Парола")]
         public string Password { get; set; } = null!;
 
+        [Required(ErrorMessage = RequiredMessage)]
+
         [DataType(DataType.Password)]
         [Display(Name = "Потвърждаване на паролата")]
         [Compare("Password", ErrorMessage = "Паролите не съвпадат.")]
         public string ConfirmPassword { get; set; } = null!;
 
         [Required(ErrorMessage = RequiredMessage)]
-        [Display(Name = "Специализация")]
+        [Display(Name = "Специалност")]
         public string SpecializationId { get; set; } = null!;
 
         public IEnumerable<SpecializationViewModel> Specializations { get; set; } = new List<SpecializationViewModel>();

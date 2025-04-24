@@ -2,6 +2,7 @@
 using HospitalAppointmentSystem.Data.Repository.Interfaces;
 using HospitalAppointmentSystem.Services.Interfaces;
 using HospitalAppointmentSystem.ViewModels.Doctor;
+using HospitalAppointmentSystem.ViewModels.Specialization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,6 +17,26 @@ namespace HospitalAppointmentSystem.Services
         {
             this.doctorRepository = doctorRepository;
             this.userManager = userManager;
+        }
+
+        public async Task<IEnumerable<DoctorAdminViewModel>> GetAllOrderedByNameAsync()
+        {
+            return await this.doctorRepository
+                .GetAllAttached()
+                .Include(d => d.User)
+                .Include(d => d.Specialization)
+                .OrderBy(d => d.User.FirstName)
+                .ThenBy(d => d.User.LastName)
+                .Select(d => new DoctorAdminViewModel
+                {
+                    Id = d.Id.ToString(),
+                    FullName = $"{d.User.FirstName} {d.User.LastName}",
+                    Email = d.User.Email,
+                    Age = d.User.Age,
+                    Gender = d.User.Gender,
+                    Specialization = d.Specialization.Name
+                })
+                .ToListAsync();
         }
 
         public async Task<IEnumerable<DoctorIndexViewModel>> GetDoctorsBySpecializationAsync(DoctorListViewModel inputModel)
@@ -132,20 +153,6 @@ namespace HospitalAppointmentSystem.Services
             return viewModel;
         }
 
-        public async Task<bool> IsUserDoctorAsync(string? userId)
-        {
-            if (String.IsNullOrWhiteSpace(userId))
-            {
-                return false;
-            }
-
-            bool result = await this.doctorRepository
-                .GetAllAttached()
-                .AnyAsync(d => d.Id.ToString().ToLower() == userId);
-
-            return result;
-        }
-
         public async Task<DoctorScheduleViewModel> GetDoctorScheduleAsync(Guid doctorId, int dayOffset)
         {
             DateTime selectedDate = DateTime.Today.AddDays(dayOffset);
@@ -215,6 +222,20 @@ namespace HospitalAppointmentSystem.Services
             await this.doctorRepository.AddAsync(doctor);
 
             return true;
+        }
+
+        public async Task<bool> IsUserDoctorAsync(string? userId)
+        {
+            if (String.IsNullOrWhiteSpace(userId))
+            {
+                return false;
+            }
+
+            bool result = await this.doctorRepository
+                .GetAllAttached()
+                .AnyAsync(d => d.Id.ToString().ToLower() == userId);
+
+            return result;
         }
     }
 }

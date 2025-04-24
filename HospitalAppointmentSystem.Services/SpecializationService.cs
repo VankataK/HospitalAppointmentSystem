@@ -19,12 +19,24 @@ namespace HospitalAppointmentSystem.Services
         {
             return await specializationRepository
                 .GetAllAttached()
+                .OrderBy(s => s.Name)
                 .Select(s => new SpecializationViewModel
                 {
                     Id = s.Id.ToString(),
                     Name = s.Name
                 })
                 .ToListAsync();
+        }
+
+        public async Task CreateAsync(AddSpecializationViewModel model)
+        {
+            Specialization specialization = new Specialization
+            {
+                Id = Guid.NewGuid(),
+                Name = model.Name,
+            };
+
+            await this.specializationRepository.AddAsync(specialization);
         }
     }
 }

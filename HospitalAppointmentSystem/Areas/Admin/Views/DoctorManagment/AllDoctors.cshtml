@@ -1,0 +1,37 @@
+﻿@model IEnumerable<DoctorAdminViewModel>
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="text-center flex-grow-1 mb-0">Всички доктори</h2>
+    <a asp-action="AddDoctor" class="btn btn-success ms-3">Добави доктор</a>
+</div>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info">Няма налични доктори.</div>
+}
+else
+{
+    <table class="table table-bordered table-striped">
+        <thead class="table-light">
+            <tr>
+                <th>Име</th>
+                <th>Имейл</th>
+                <th>Възраст</th>
+                <th>Пол</th>
+                <th>Специалност</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var doc in Model)
+            {
+                <tr>
+                    <td>Д-р @doc.FullName</td>
+                    <td>@doc.Email</td>
+                    <td>@doc.Age</td>
+                    <td>@doc.Gender</td>
+                    <td>@doc.Specialization</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
