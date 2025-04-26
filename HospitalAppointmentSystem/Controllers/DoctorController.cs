@@ -45,7 +45,7 @@ namespace HospitalAppointmentSystem.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = PatientRoleName)]
+        [AllowAnonymous]
         public async Task<IActionResult> Details(string id, int weekOffset = 0)
         {
             Guid doctorGuid = Guid.Empty;

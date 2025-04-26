@@ -61,6 +61,8 @@ namespace HospitalAppointmentSystem.Services
                 {
                     Id = d.Id.ToString(),
                     FullName = $"{d.User.FirstName} {d.User.LastName}",
+                    Gender = d.User.Gender,
+                    Age = d.User.Age,
                     SpecializationName = d.Specialization.Name,
                     AverageProfessionalism = d.Appointments
                     .Where(a => a.Rating != null).Count() >= 20
@@ -121,7 +123,10 @@ namespace HospitalAppointmentSystem.Services
             {
                 DoctorId = doctor.Id.ToString(),
                 DoctorName = $"{doctor.User.FirstName} {doctor.User.LastName}",
+                Gender = doctor.User.Gender,
+                Age = doctor.User.Age,
                 SpecializationName = doctor.Specialization.Name,
+                Description = doctor.Description,
                 WeekStart = startOfWeek
             };
 

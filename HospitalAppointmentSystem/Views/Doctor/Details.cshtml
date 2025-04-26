@@ -1,14 +1,39 @@
 ﻿@model DoctorDetailsViewModel
 
-<div class="mb-3">
-    <p><strong>Д-р @Model.DoctorName</strong></p>
-    <p>@Model.SpecializationName</p>
-</div>
+@{
+    ViewData["Title"] = "Детайли за доктора";
+}
+
+ <div class="card shadow-sm mb-5">
+     <div class="card-body">
+         <h2 class="text-center mb-4">Д-р @Model.DoctorName</h2>
+
+         <div class="mb-2">
+             <strong>Пол:</strong> @Model.Gender
+         </div>
+         <div class="mb-2">
+             <strong>Възраст:</strong> @Model.Age
+         </div>
+         <div class="mb-2">
+             <strong>Специалност:</strong> @Model.SpecializationName
+         </div>
+
+         @if (!string.IsNullOrWhiteSpace(Model.Description))
+         {
+             <div class="mb-4">
+                 <h5>Описание:</h5>
+                 <p>@Model.Description</p>
+             </div>
+         }
+     </div>
+ </div>
+
+<h3 class="text-center mb-4">Запази час</h3>
 
 <div class="d-flex justify-content-between align-items-center mb-3">
-    <a asp-action="Details" asp-route-id="@Model.DoctorId" asp-route-weekOffset="@(ViewBag.WeekOffset - 1)" class="btn btn-outline-primary">&larr;</a>
+    <a asp-action="Details" asp-route-id="@Model.DoctorId" asp-route-weekOffset="@(ViewBag.WeekOffset - 1)" class="btn btn-outline-dark">&larr;</a>
     <h4>@Model.WeekStart.ToString("dd.MM.yyyy") - @Model.WeekStart.AddDays(6).ToString("dd.MM.yyyy")</h4>
-    <a asp-action="Details" asp-route-id="@Model.DoctorId" asp-route-weekOffset="@(ViewBag.WeekOffset + 1)" class="btn btn-outline-primary">&rarr;</a>
+    <a asp-action="Details" asp-route-id="@Model.DoctorId" asp-route-weekOffset="@(ViewBag.WeekOffset + 1)" class="btn btn-outline-dark">&rarr;</a>
 </div>
 
 <div class="row">
@@ -52,3 +77,6 @@
     }
 </div>
 
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
