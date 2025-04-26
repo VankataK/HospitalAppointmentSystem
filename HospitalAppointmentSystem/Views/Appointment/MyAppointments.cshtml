@@ -13,8 +13,8 @@
 else
 {
     <div class="table-responsive">
-        <table class="table table-bordered table-hover text-center align-middle">
-            <thead class="table-dark">
+        <table class="table table-bordered table-striped text-center align-middle">
+            <thead class="table-light">
                 <tr>
                     <th>Доктор</th>
                     <th>Дата</th>
@@ -55,8 +55,7 @@ else
                             }
                             else if (!isPast)
                             {
-                                <form asp-action="Cancel" asp-controller="Appointment" method="post" class="d-inline">
-                                    <input type="hidden" name="id" value="@appointment.Id" />
+                                <form asp-action="Cancel" method="post" asp-route-id="@appointment.Id" onsubmit="return confirm('Сигурни ли сте, че искате да отмените прегледа?');">
                                     <button type="submit" class="btn btn-sm btn-outline-danger">Отмени</button>
                                 </form>
                             }

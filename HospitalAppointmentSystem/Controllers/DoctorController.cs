@@ -144,9 +144,20 @@ namespace HospitalAppointmentSystem.Controllers
                 return this.RedirectToAction(nameof(Index));
             }
 
-            if (!ModelState.IsValid || model.EndDate < model.StartDate)
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            if (model.EndDate < model.StartDate)
             {
                 ModelState.AddModelError(string.Empty, "Крайната дата трябва да е след началната.");
+                return View(model);
+            }
+
+            if (model.StartDate <= DateTime.Today)
+            {
+                ModelState.AddModelError(string.Empty, "Отпуск може да се вземе най-рано за утрешния ден.");
                 return View(model);
             }
 

@@ -21,9 +21,11 @@
                     <span>@day.Date.ToString("dd.MM.yyyy")</span>
                 </div>
                 <div class="card-body">
-                    @if (day.IsVacationOrWeekend)
+                    @if (day.IsVacationOrWeekend || day.Date < DateTime.Today)
                     {
-                        <div class="text-center text-muted">Недостъпен</div>
+                        <div class="d-flex align-items-center justify-content-center w-100 h-100">
+                            <div class="day-unavailable"></div>
+                        </div>
                     }
                     else
                     {

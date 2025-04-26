@@ -36,6 +36,14 @@ namespace HospitalAppointmentSystem.Services
             return appointments;
         }
 
+        public async Task<Appointment?> GetAppointmentByIdAsync(Guid id)
+        {
+            Appointment? appointment = await this.appointmentRepository
+                .GetByIdAsync(id);
+
+            return appointment;
+        }
+
         public async Task<RatingViewModel?> GetAppointmentForRatingAsync(Guid appointmentId, Guid userId)
         {
             Appointment? appointment = await appointmentRepository
@@ -75,6 +83,13 @@ namespace HospitalAppointmentSystem.Services
             };
 
             await this.appointmentRepository.AddAsync(appointment);
+        }
+
+        public async Task<bool> DeleteAppointmentAsync(Appointment appointment)
+        {
+            bool result = await this.appointmentRepository.DeleteAsync(appointment);
+
+            return result;
         }
     }
 }

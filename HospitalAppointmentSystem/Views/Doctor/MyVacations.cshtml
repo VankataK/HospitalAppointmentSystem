@@ -11,11 +11,11 @@
 
 @if (!Model.Any())
 {
-    <div class="alert alert-info text-center">Нямате добавени отпуски.</div>
+    <div class="alert alert-info text-center">Нямате отпуски.</div>
 }
 else
 {
-    <table class="table table-bordered table-striped">
+    <table class="table table-bordered table-striped text-center align-middle">
         <thead class="table-light">
             <tr>
                 <th scope="col">Начална дата</th>
@@ -33,9 +33,12 @@ else
                     <td>@vacation.EndDate.ToString("dd.MM.yyyy")</td>
                     <td>@days</td>
                     <td>
-                        <form asp-action="DeleteVacation" method="post" asp-route-vacationId="@vacation.Id" onsubmit="return confirm('Сигурни ли сте, че искате да отмените отпуската?');">
-                            <button type="submit" class="btn btn-sm btn-danger">Отмени</button>
-                        </form>
+                        @if(vacation.StartDate > DateTime.Today)
+                        {
+                            <form asp-action="DeleteVacation" method="post" asp-route-vacationId="@vacation.Id" onsubmit="return confirm('Сигурни ли сте, че искате да отмените отпуската?');">
+                                <button type="submit" class="btn btn-sm btn-danger">Отмени</button>
+                            </form>
+                        }
                     </td>
                 </tr>
             }

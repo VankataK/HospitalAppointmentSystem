@@ -21,7 +21,7 @@ namespace HospitalAppointmentSystem.Services
             IEnumerable<VacationViewModel> vacations = await this.vacationRepository
                 .GetAllAttached()
                 .Where(v => v.DoctorId == doctorId)
-                .OrderByDescending(v => v.StartDate)
+                .OrderBy(v => v.StartDate)
                 .Select(v => new VacationViewModel
                 {
                     Id = v.Id.ToString(),

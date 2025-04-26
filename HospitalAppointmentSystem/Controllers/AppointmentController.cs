@@ -89,5 +89,31 @@ namespace HospitalAppointmentSystem.Controllers
 
             return View(appointments);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Cancel(string id)
+        {
+            Guid appointmentGuid = Guid.Empty;
+            if (!IsGuidValid(id, ref appointmentGuid))
+            {
+                return RedirectToAction(nameof(MyAppointments));
+            }
+
+            Appointment? appointment = await this.appointmentService.GetAppointmentByIdAsync(appointmentGuid);
+
+            if (appointment == null)
+            {
+                return RedirectToAction(nameof(MyAppointments));
+            }
+
+            bool result = await this.appointmentService.DeleteAppointmentAsync(appointment);
+
+            if (result)
+            {
+                TempData["Success"] = "Прегледът е отменен успешно.";
+            }
+
+            return RedirectToAction(nameof(MyAppointments));
+        }
     }
 }

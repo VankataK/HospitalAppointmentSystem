@@ -143,6 +143,12 @@ namespace HospitalAppointmentSystem.Services
                     for (TimeSpan t = TimeSpan.FromHours(9); t < TimeSpan.FromHours(17); t += TimeSpan.FromMinutes(30))
                     {
                         DateTime slotDateTime = date.Date + t;
+
+                        if (date.Date == DateTime.Today && slotDateTime <= DateTime.Now)
+                        {
+                            continue;
+                        }
+
                         bool isTaken = doctor.Appointments.Any(a => a.AppointmentDateTime == slotDateTime);
                         dayAvailability.TimeSlots.Add(new TimeSlot { Time = t, IsAvailable = !isTaken });
                     }
