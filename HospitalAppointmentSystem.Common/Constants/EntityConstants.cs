@@ -18,6 +18,8 @@
                          
         public const int SpecializationNameMaxLength = 100;
 
+        public const int DoctorDescriptionMaxLength = 1000;
+
         public const string RatingMinValue = "1";
 
         public const string RatingMaxValue = "10";

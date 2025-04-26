@@ -47,6 +47,10 @@ namespace HospitalAppointmentSystem.ViewModels.Doctor
         [Display(Name = "Специалност")]
         public string SpecializationId { get; set; } = null!;
 
+        [StringLength(DoctorDescriptionMaxLength, ErrorMessage = "Описанието не може да е повече от {1} знака.")]
+        [Display(Name = "Описание")]
+        public string? Description {  get; set; }
+
         public IEnumerable<SpecializationViewModel> Specializations { get; set; } = new List<SpecializationViewModel>();
     }
 }

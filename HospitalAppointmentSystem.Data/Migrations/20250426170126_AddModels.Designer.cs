@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HospitalAppointmentSystem.Data.Migrations
 {
     [DbContext(typeof(HospitalDbContext))]
-    [Migration("20250412153610_AddEntities")]
-    partial class AddEntities
+    [Migration("20250426170126_AddModels")]
+    partial class AddModels
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -144,6 +144,11 @@ namespace HospitalAppointmentSystem.Data.Migrations
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier")
                         .HasComment("Doctor Identifier");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)")
+                        .HasComment("Doctor Description");
 
                     b.Property<Guid>("SpecializationId")
                         .HasColumnType("uniqueidentifier")

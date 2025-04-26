@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using static HospitalAppointmentSystem.Common.Constants.EntityConstants;
 
 namespace HospitalAppointmentSystem.Data.Models
 {
@@ -21,6 +22,10 @@ namespace HospitalAppointmentSystem.Data.Models
         [ForeignKey(nameof(SpecializationId))]
         [DeleteBehavior(DeleteBehavior.Restrict)]
         public Specialization Specialization { get; set; } = null!;
+
+        [MaxLength(DoctorDescriptionMaxLength)]
+        [Comment("Doctor Description")]
+        public string? Description { get; set; }
         
         public ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
 

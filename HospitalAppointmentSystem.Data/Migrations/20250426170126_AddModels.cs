@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace HospitalAppointmentSystem.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class AddEntities : Migration
+    public partial class AddModels : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -28,7 +28,8 @@ namespace HospitalAppointmentSystem.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "Doctor Identifier"),
-                    SpecializationId = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "Specialization Identifier")
+                    SpecializationId = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "Specialization Identifier"),
+                    Description = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true, comment: "Doctor Description")
                 },
                 constraints: table =>
                 {

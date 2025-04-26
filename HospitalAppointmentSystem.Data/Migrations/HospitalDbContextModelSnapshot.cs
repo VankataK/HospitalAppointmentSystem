@@ -110,7 +110,7 @@ namespace HospitalAppointmentSystem.Data.Migrations
                             Id = new Guid("2a023c7e-5733-4364-aed5-fc81fbd673dc"),
                             AccessFailedCount = 0,
                             Age = 40,
-                            ConcurrencyStamp = "dce4ae2e-723a-4ba3-907f-69c7e88b0e1e",
+                            ConcurrencyStamp = "6f59a0b5-3bea-4b7e-9d41-3d145c89de33",
                             Email = "doctor1@mail.com",
                             EmailConfirmed = false,
                             FirstName = "Иван",
@@ -130,7 +130,7 @@ namespace HospitalAppointmentSystem.Data.Migrations
                             Id = new Guid("14108175-e9b7-41e4-a85b-e69b16df9b60"),
                             AccessFailedCount = 0,
                             Age = 41,
-                            ConcurrencyStamp = "eabc12c0-3e93-47b7-8185-cb728c8147eb",
+                            ConcurrencyStamp = "9c5b6bca-521e-44a8-b0af-57f8c50370ce",
                             Email = "doctor2@mail.com",
                             EmailConfirmed = false,
                             FirstName = "Виктория",
@@ -150,7 +150,7 @@ namespace HospitalAppointmentSystem.Data.Migrations
                             Id = new Guid("0474b09e-b40c-4a07-821b-608382e23074"),
                             AccessFailedCount = 0,
                             Age = 42,
-                            ConcurrencyStamp = "4f2d512d-9d55-4112-8501-e995da5e4423",
+                            ConcurrencyStamp = "6c2c4c90-a80e-4287-969b-b140de36b022",
                             Email = "doctor3@mail.com",
                             EmailConfirmed = false,
                             FirstName = "Станимир",
@@ -170,7 +170,7 @@ namespace HospitalAppointmentSystem.Data.Migrations
                             Id = new Guid("88e0d517-065a-49ab-bf2f-b9545e6791b1"),
                             AccessFailedCount = 0,
                             Age = 43,
-                            ConcurrencyStamp = "faba99c9-de7c-43cf-8b0e-e557a4ad4152",
+                            ConcurrencyStamp = "f53ea4a5-e0be-4f30-8ba7-f13394e098ac",
                             Email = "doctor4@mail.com",
                             EmailConfirmed = false,
                             FirstName = "Яна",
@@ -190,7 +190,7 @@ namespace HospitalAppointmentSystem.Data.Migrations
                             Id = new Guid("248cf7a1-4b05-461f-a6a2-155f897921de"),
                             AccessFailedCount = 0,
                             Age = 44,
-                            ConcurrencyStamp = "f9218698-aadf-4647-a0ed-d5e1ff241fff",
+                            ConcurrencyStamp = "428e63e8-1dbf-4fea-95e6-74ec9639db9a",
                             Email = "doctor5@mail.com",
                             EmailConfirmed = false,
                             FirstName = "Виктор",
@@ -210,7 +210,7 @@ namespace HospitalAppointmentSystem.Data.Migrations
                             Id = new Guid("74f6ca22-d948-4352-b4ba-722ed47b676a"),
                             AccessFailedCount = 0,
                             Age = 25,
-                            ConcurrencyStamp = "1cd445a0-e5d6-465d-826c-891b69983a16",
+                            ConcurrencyStamp = "2899cf88-0819-4685-9e54-c74cd35b29ed",
                             Email = "patient1@mail.com",
                             EmailConfirmed = false,
                             FirstName = "Георги",
@@ -230,7 +230,7 @@ namespace HospitalAppointmentSystem.Data.Migrations
                             Id = new Guid("27f342da-167d-43a6-a140-a63826b18da2"),
                             AccessFailedCount = 0,
                             Age = 26,
-                            ConcurrencyStamp = "32194970-ebe0-4846-84d3-a6cff2a6083f",
+                            ConcurrencyStamp = "643ceecc-7471-4d2d-87f3-a4c4176bbb31",
                             Email = "patient2@mail.com",
                             EmailConfirmed = false,
                             FirstName = "Елена",
@@ -250,7 +250,7 @@ namespace HospitalAppointmentSystem.Data.Migrations
                             Id = new Guid("346499bb-4636-4791-93c8-7ef0fd32a87d"),
                             AccessFailedCount = 0,
                             Age = 27,
-                            ConcurrencyStamp = "271dca0a-5fde-4cc9-8fc4-f4912d3ff427",
+                            ConcurrencyStamp = "be4f4571-fff1-4b4a-a655-3cfd124af468",
                             Email = "patient3@mail.com",
                             EmailConfirmed = false,
                             FirstName = "Петър",
@@ -270,7 +270,7 @@ namespace HospitalAppointmentSystem.Data.Migrations
                             Id = new Guid("ab61bdab-b0ff-42e2-bd61-e2e389b8b009"),
                             AccessFailedCount = 0,
                             Age = 28,
-                            ConcurrencyStamp = "419bac6a-56c2-44a7-a191-2a19fd6bdc67",
+                            ConcurrencyStamp = "c585dc3e-a89f-4fc8-91c7-c9ef0e338555",
                             Email = "patient4@mail.com",
                             EmailConfirmed = false,
                             FirstName = "Мария",
@@ -290,7 +290,7 @@ namespace HospitalAppointmentSystem.Data.Migrations
                             Id = new Guid("4eb44df6-f425-4243-bee9-e18d19968f06"),
                             AccessFailedCount = 0,
                             Age = 29,
-                            ConcurrencyStamp = "29c5b84c-b157-44b4-accf-b5140d1c6a2e",
+                            ConcurrencyStamp = "d65c05d2-dda1-430e-b7a6-ac670d0891cf",
                             Email = "patient5@mail.com",
                             EmailConfirmed = false,
                             FirstName = "Ивайло",
@@ -310,7 +310,7 @@ namespace HospitalAppointmentSystem.Data.Migrations
                             Id = new Guid("b2a9f3f8-70ef-4e4b-9214-61426bfe43df"),
                             AccessFailedCount = 0,
                             Age = 0,
-                            ConcurrencyStamp = "8bbad1ee-4d7c-49e0-9fd7-6c83d268a7b9",
+                            ConcurrencyStamp = "f7e0b9c6-1ed2-44a2-8993-56ec05bf5005",
                             Email = "admin@mail.com",
                             EmailConfirmed = false,
                             FirstName = "Админ",
@@ -902,6 +902,11 @@ namespace HospitalAppointmentSystem.Data.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasComment("Doctor Identifier");
 
+                    b.Property<string>("Description")
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)")
+                        .HasComment("Doctor Description");
+
                     b.Property<Guid>("SpecializationId")
                         .HasColumnType("uniqueidentifier")
                         .HasComment("Specialization Identifier");
@@ -916,26 +921,31 @@ namespace HospitalAppointmentSystem.Data.Migrations
                         new
                         {
                             Id = new Guid("2a023c7e-5733-4364-aed5-fc81fbd673dc"),
+                            Description = "Д-р Иван Петров е завършил Медицинския университет в София. Има над 15 години опит като кардиолог в Александровска болница и е специализирал в Германия по инвазивна кардиология.",
                             SpecializationId = new Guid("d3495565-b898-4f91-b2b1-81907eee1249")
                         },
                         new
                         {
                             Id = new Guid("14108175-e9b7-41e4-a85b-e69b16df9b60"),
+                            Description = "Д-р Виктория Стоянова е дипломиран невролог от Медицинския университет в Варна. Работила е в МБАЛ \"Света Марина\" и има дългогодишен опит в лечението на неврологични заболявания.",
                             SpecializationId = new Guid("f4d444aa-ba0b-4ac3-a58f-5a34c317b29a")
                         },
                         new
                         {
                             Id = new Guid("0474b09e-b40c-4a07-821b-608382e23074"),
+                            Description = "Д-р Станимир Колев е завършил Медицинския университет в Пловдив. Има над 10 години практика като дерматолог и е специализирал в областта на кожните автоимунни заболявания.",
                             SpecializationId = new Guid("34f31b29-3a0e-4203-8a32-01ac8690e314")
                         },
                         new
                         {
                             Id = new Guid("88e0d517-065a-49ab-bf2f-b9545e6791b1"),
+                            Description = "Д-р Яна Танева е ортопед с образование от Медицинския университет в София. Работила е в ортопедичното отделение на ВМА и има специален интерес към спортната медицина.",
                             SpecializationId = new Guid("0ad750ee-b4d1-49ee-b4d8-349f7f54efd8")
                         },
                         new
                         {
                             Id = new Guid("248cf7a1-4b05-461f-a6a2-155f897921de"),
+                            Description = "Д-р Виктор Борисов е кардиолог, завършил Медицинския университет в Плевен. Има над 20 години стаж в областта на неинвазивната диагностика и лечението на сърдечни заболявания.",
                             SpecializationId = new Guid("d3495565-b898-4f91-b2b1-81907eee1249")
                         });
                 });
