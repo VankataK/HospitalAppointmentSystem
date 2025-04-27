@@ -6,6 +6,9 @@ using HospitalAppointmentSystem.ViewModels.Rating;
 
 namespace HospitalAppointmentSystem.Controllers
 {
+    /// <summary>
+    /// Контролер за поставяне на оценки на прегледи.
+    /// </summary>
     [Authorize(Roles = "Patient")]
     public class RatingController : BaseController
     {
@@ -19,6 +22,9 @@ namespace HospitalAppointmentSystem.Controllers
             this.appointmentService = appointmentService;
         }
 
+        /// <summary>
+        /// Показва формата за поставяне на оценка след преглед.
+        /// </summary>
         [HttpGet]
         public async Task<IActionResult> Rate(string appointmentId)
         {
@@ -41,6 +47,9 @@ namespace HospitalAppointmentSystem.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// Записва новата оценка.
+        /// </summary>
         [HttpPost]
         public async Task<IActionResult> Rate(RatingViewModel model)
         {

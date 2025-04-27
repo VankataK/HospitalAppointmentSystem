@@ -1,9 +1,13 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace HospitalAppointmentSystem.Data.Models
 {
+    /// <summary>
+    /// Модел за оценка на преглед.
+    /// Съдържа оценки за професионализъм и отношение.
+    /// </summary>
     public class Rating
     {
         [Key]

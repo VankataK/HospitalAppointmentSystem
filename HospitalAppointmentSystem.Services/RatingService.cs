@@ -1,12 +1,14 @@
-﻿using HospitalAppointmentSystem.Data.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using HospitalAppointmentSystem.Data.Models;
 using HospitalAppointmentSystem.Data.Repository.Interfaces;
 using HospitalAppointmentSystem.Services.Interfaces;
 using HospitalAppointmentSystem.ViewModels.Rating;
-using Microsoft.EntityFrameworkCore;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace HospitalAppointmentSystem.Services
 {
+    /// <summary>
+    /// Клас за управление на оценките на прегледите.
+    /// </summary>
     public class RatingService : BaseService, IRatingService
     {
         private readonly IRepository<Rating, Guid> ratingRepository;
@@ -15,7 +17,10 @@ namespace HospitalAppointmentSystem.Services
         {
             this.ratingRepository = ratingRepository;
         }
-        
+
+        /// <summary>
+        /// Връща всички оценки с възможност за филтриране.
+        /// </summary>
         public async Task<IEnumerable<RatingAdminViewModel>> GetAllRatingsAsync(RatingFilterViewModel inputModel)
         {
             IQueryable<Rating> ratingsQuery = this.ratingRepository
@@ -62,6 +67,9 @@ namespace HospitalAppointmentSystem.Services
                 .ToListAsync();
         }
 
+        /// <summary>
+        /// Записва нова оценка на преглед.
+        /// </summary>
         public async Task<bool> SubmitRatingAsync(RatingViewModel model)
         {
             Guid appointmentGuid = Guid.Empty;

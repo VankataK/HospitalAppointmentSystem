@@ -4,6 +4,9 @@ using static HospitalAppointmentSystem.Common.Constants.EntityConstants;
 
 namespace HospitalAppointmentSystem.Data.Models
 {
+    /// <summary>
+    /// Модел за специалност на доктора.
+    /// </summary>
     public class Specialization
     {
         [Key]

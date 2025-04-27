@@ -1,5 +1,8 @@
 ﻿namespace HospitalAppointmentSystem.Common.Constants
 {
+    /// <summary>
+    /// Константи за съобщения за грешки при валидирането на данни.
+    /// </summary>
     public static class EntityMessages
     {
         public const string RequiredMessage = "Полето за {0} е задължително!";

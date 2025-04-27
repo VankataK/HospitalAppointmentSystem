@@ -1,11 +1,13 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Identity.Client;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace HospitalAppointmentSystem.Data.Models
 {
+    /// <summary>
+    /// Модел за запазване на преглед.
+    /// </summary>
     public class Appointment
     {
         [Key]

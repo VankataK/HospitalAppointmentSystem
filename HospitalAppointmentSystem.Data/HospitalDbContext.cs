@@ -6,6 +6,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HospitalAppointmentSystem.Data
 {
+    /// <summary>
+    /// Контекст на базата данни за болничната система.
+    /// Управлява таблиците и началното им зареждане.
+    /// </summary>
     public class HospitalDbContext : IdentityDbContext<ApplicationUser, IdentityRole<Guid>, Guid>
     {
         public HospitalDbContext(DbContextOptions<HospitalDbContext> options)
@@ -19,7 +23,10 @@ namespace HospitalAppointmentSystem.Data
         public DbSet<Rating> Ratings { get; set; } = null!;
         public DbSet<Specialization> Specializations { get; set; } = null!;
         public DbSet<Vacation> Vacations { get; set; } = null!;
-        
+
+        /// <summary>
+        /// Конфигурира модела на базата данни и зарежда начални данни от JSON файлове.
+        /// </summary>
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<ApplicationUser>().HasData(JsonSeeder.LoadJson<ApplicationUser>("users.json"));

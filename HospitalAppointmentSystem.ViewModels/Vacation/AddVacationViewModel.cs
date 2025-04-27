@@ -3,6 +3,9 @@ using static HospitalAppointmentSystem.Common.Constants.EntityMessages;
 
 namespace HospitalAppointmentSystem.ViewModels.Vacation
 {
+    /// <summary>
+    /// Модел за добавяне на отпуска за даден лекар.
+    /// </summary>
     public class AddVacationViewModel
     {
         [Required(ErrorMessage = RequiredMessage)]

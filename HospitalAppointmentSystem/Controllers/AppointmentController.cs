@@ -9,6 +9,9 @@ using HospitalAppointmentSystem.ViewModels.Doctor;
 
 namespace HospitalAppointmentSystem.Controllers
 {
+    /// <summary>
+    /// Контролер за управление на прегледите на пациенти.
+    /// </summary>
     [Authorize(Roles = "Patient")]
     public class AppointmentController : BaseController
     {
@@ -22,6 +25,9 @@ namespace HospitalAppointmentSystem.Controllers
             this.userManager = userManager;
         }
 
+        /// <summary>
+        /// Показва страницата за потвърждение на запазването на преглед.
+        /// </summary>
         [HttpGet]
         public async Task<IActionResult> Book(string doctorId)
         {
@@ -54,6 +60,9 @@ namespace HospitalAppointmentSystem.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// Запазва нов преглед.
+        /// </summary>
         [HttpPost]
         public async Task<IActionResult> Book(AppointmentConfirmationViewModel model)
         {
@@ -69,6 +78,9 @@ namespace HospitalAppointmentSystem.Controllers
             return RedirectToAction(nameof(MyAppointments));
         }
 
+        /// <summary>
+        /// Показва всички записани прегледи на текущия потребител.
+        /// </summary>
         [HttpGet]
         public async Task<IActionResult> MyAppointments()
         {
@@ -86,6 +98,9 @@ namespace HospitalAppointmentSystem.Controllers
             return View(appointments);
         }
 
+        /// <summary>
+        /// Отменя записан преглед.
+        /// </summary>
         [HttpPost]
         public async Task<IActionResult> Cancel(string id)
         {

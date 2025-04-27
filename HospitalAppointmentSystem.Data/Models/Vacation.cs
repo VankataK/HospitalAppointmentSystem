@@ -4,6 +4,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HospitalAppointmentSystem.Data.Models
 {
+    /// <summary>
+    /// Модел за отпуска на доктора.
+    /// </summary>
     public class Vacation
     {
         [Key]

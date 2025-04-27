@@ -8,6 +8,9 @@ using static HospitalAppointmentSystem.Common.Constants.ApplicationConstants;
 
 namespace HospitalAppointmentSystem.Areas.Admin.Controllers
 {
+    /// <summary>
+    /// Контролер за управление на докторите от страна на администратора.
+    /// </summary>
     [Area(AdminRoleName)]
     [Authorize(Roles = AdminRoleName)]
     public class DoctorManagementController : BaseController
@@ -20,6 +23,9 @@ namespace HospitalAppointmentSystem.Areas.Admin.Controllers
             this.specializationService = specializationService;
         }
 
+        /// <summary>
+        /// Показва списък с всички доктори, сортирани по име.
+        /// </summary>
         [HttpGet]
         public async Task<IActionResult> AllDoctors()
         {
@@ -29,6 +35,9 @@ namespace HospitalAppointmentSystem.Areas.Admin.Controllers
             return View(doctors);
         }
 
+        /// <summary>
+        /// Показва формата за добавяне на нов доктор.
+        /// </summary>
         [HttpGet]
         public async Task<IActionResult> AddDoctor()
         {
@@ -43,6 +52,9 @@ namespace HospitalAppointmentSystem.Areas.Admin.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// Обработва пост заявка за добавяне на нов доктор.
+        /// </summary>
         [HttpPost]
         public async Task<IActionResult> AddDoctor(AddDoctorViewModel model)
         {

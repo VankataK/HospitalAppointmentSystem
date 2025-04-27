@@ -7,6 +7,9 @@ using HospitalAppointmentSystem.ViewModels.Rating;
 
 namespace HospitalAppointmentSystem.Services
 {
+    /// <summary>
+    /// Клас за управление на прегледите.
+    /// </summary>
     public class AppointmentService : BaseService, IAppointmentService
     {
         private readonly IRepository<Appointment, Guid> appointmentRepository;
@@ -16,6 +19,9 @@ namespace HospitalAppointmentSystem.Services
             this.appointmentRepository = appointmentRepository;
         }
 
+        /// <summary>
+        /// Връща списък с всички прегледи на даден пациент.
+        /// </summary>
         public async Task<IEnumerable<MyAppointmentsViewModel>> GetAppointmentsByPatientIdAsync(Guid patientId)
         {
             IEnumerable<MyAppointmentsViewModel> appointments = await this.appointmentRepository
@@ -36,6 +42,9 @@ namespace HospitalAppointmentSystem.Services
             return appointments;
         }
 
+        /// <summary>
+        /// Връща информация за преглед по идентификатор.
+        /// </summary>
         public async Task<Appointment?> GetAppointmentByIdAsync(Guid id)
         {
             Appointment? appointment = await this.appointmentRepository
@@ -46,6 +55,9 @@ namespace HospitalAppointmentSystem.Services
             return appointment;
         }
 
+        /// <summary>
+        /// Връща преглед за оценяване.
+        /// </summary>
         public async Task<RatingViewModel?> GetAppointmentForRatingAsync(Guid appointmentId, Guid userId)
         {
             Appointment? appointment = await appointmentRepository
@@ -74,7 +86,10 @@ namespace HospitalAppointmentSystem.Services
                 AppointmentId = appointmentId.ToString()
             };
         }
-        
+
+        /// <summary>
+        /// Добавя нов преглед в системата.
+        /// </summary>
         public async Task AddAppointmentAsync(AppointmentConfirmationViewModel inputModel, string patientId)
         {
             Appointment appointment = new Appointment
@@ -88,6 +103,9 @@ namespace HospitalAppointmentSystem.Services
             await this.appointmentRepository.AddAsync(appointment);
         }
 
+        /// <summary>
+        /// Извършва изтриване на прегледа (без физическо триене от базата).
+        /// </summary>
         public async Task<bool> SoftDeleteAppointmentAsync(Guid id)
         {
             Appointment? appointmentToDelete = await this.appointmentRepository

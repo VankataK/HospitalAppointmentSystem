@@ -4,6 +4,9 @@ using static HospitalAppointmentSystem.Common.Constants.EntityConstants;
 
 namespace HospitalAppointmentSystem.Data.Models
 {
+    /// <summary>
+    /// Разширен модел на потребител, използващ ASP.NET Identity с допълнителни данни.
+    /// </summary>
     public class ApplicationUser : IdentityUser<Guid>
     {
         public ApplicationUser()

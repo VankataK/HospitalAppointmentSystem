@@ -4,6 +4,9 @@ using static HospitalAppointmentSystem.Common.Constants.EntityMessages;
 
 namespace HospitalAppointmentSystem.ViewModels.Specialization
 {
+    /// <summary>
+    /// Модел за създаване на нова специалност от администратора.
+    /// </summary>
     public class AddSpecializationViewModel
     {
         [Required(ErrorMessage = RequiredMessage)]

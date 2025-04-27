@@ -1,5 +1,8 @@
 ﻿namespace HospitalAppointmentSystem.ViewModels.Doctor
 {
+    /// <summary>
+    /// Модел за преглед на докторите.
+    /// </summary>
     public class DoctorIndexViewModel
     {
         public string Id { get; set; } = null!;

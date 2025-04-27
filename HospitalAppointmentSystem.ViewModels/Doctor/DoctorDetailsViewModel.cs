@@ -1,5 +1,9 @@
 ﻿namespace HospitalAppointmentSystem.ViewModels.Doctor
 {
+    /// <summary>
+    /// Модел за подробна информация за доктор, видима за пациентите.
+    /// Съдържа данни за доктора и седмичен график.
+    /// </summary>
     public class DoctorDetailsViewModel
     {
         public string DoctorId { get; set; } = null!;

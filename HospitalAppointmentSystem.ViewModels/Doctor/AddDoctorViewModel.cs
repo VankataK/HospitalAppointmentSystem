@@ -4,6 +4,10 @@ using static HospitalAppointmentSystem.Common.Constants.EntityConstants;
 using static HospitalAppointmentSystem.Common.Constants.EntityMessages;
 namespace HospitalAppointmentSystem.ViewModels.Doctor
 {
+    /// <summary>
+    /// Модел за създаване на нов доктор от администратора.
+    /// Съдържа лични данни, имейл, парола и избор на специалност.
+    /// </summary>
     public class AddDoctorViewModel
     {
         [Required(ErrorMessage = RequiredMessage)]

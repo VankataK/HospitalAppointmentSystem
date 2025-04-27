@@ -7,6 +7,9 @@ using HospitalAppointmentSystem.ViewModels.Doctor;
 
 namespace HospitalAppointmentSystem.Services
 {
+    /// <summary>
+    /// Клас за управление на докторите.
+    /// </summary>
     public class DoctorService : BaseService, IDoctorService
     {
         private readonly IRepository<Doctor, Guid> doctorRepository;
@@ -18,6 +21,9 @@ namespace HospitalAppointmentSystem.Services
             this.userManager = userManager;
         }
 
+        /// <summary>
+        /// Връща всички доктори, сортирани по име.
+        /// </summary>
         public async Task<IEnumerable<DoctorAdminViewModel>> GetAllOrderedByNameAsync()
         {
             IEnumerable<DoctorAdminViewModel> doctors = await this.doctorRepository
@@ -40,6 +46,9 @@ namespace HospitalAppointmentSystem.Services
             return doctors;
         }
 
+        /// <summary>
+        /// Връща доктори според избрана специалност.
+        /// </summary>
         public async Task<IEnumerable<DoctorIndexViewModel>> GetDoctorsBySpecializationAsync(DoctorListViewModel inputModel)
         {
             IQueryable<Doctor> doctors = this.doctorRepository
@@ -76,6 +85,9 @@ namespace HospitalAppointmentSystem.Services
                 .ToListAsync();
         }
 
+        /// <summary>
+        /// Връща детайли за конкретен доктор по идентификатор.
+        /// </summary>
         public async Task<DoctorIndexViewModel?> GetDoctorByIdAsync(Guid id)
         {
             Doctor? doctor = await this.doctorRepository
@@ -100,6 +112,9 @@ namespace HospitalAppointmentSystem.Services
             return viewModel;
         }
 
+        /// <summary>
+        /// Връща график на свободните часове на доктор за дадена седмица.
+        /// </summary>
         public async Task<DoctorDetailsViewModel?> GetDoctorAvailabilityAsync(Guid doctorId, int weekOffset)
         {
             Doctor? doctor = await this.doctorRepository
@@ -173,6 +188,9 @@ namespace HospitalAppointmentSystem.Services
             return viewModel;
         }
 
+        /// <summary>
+        /// Връща график на часовете на доктор за даден ден.
+        /// </summary>
         public async Task<DoctorScheduleViewModel> GetDoctorScheduleAsync(Guid doctorId, int dayOffset)
         {
             DateTime selectedDate = DateTime.Today.AddDays(dayOffset);
@@ -204,6 +222,9 @@ namespace HospitalAppointmentSystem.Services
             return viewModel;
         }
 
+        /// <summary>
+        /// Добавя нов доктор в системата.
+        /// </summary>
         public async Task<bool> AddDoctorAsync(AddDoctorViewModel inputModel)
         {
             Guid specializationGuid = Guid.Empty;
@@ -244,6 +265,9 @@ namespace HospitalAppointmentSystem.Services
             return true;
         }
 
+        /// <summary>
+        /// Проверява дали потребителят е доктор.
+        /// </summary>
         public async Task<bool> IsUserDoctorAsync(string? userId)
         {
             if (String.IsNullOrWhiteSpace(userId))
@@ -258,6 +282,9 @@ namespace HospitalAppointmentSystem.Services
             return result;
         }
 
+        /// <summary>
+        /// Проверява дали за даден доктор има записани прегледи в определен период.
+        /// </summary>
         public async Task<bool> IsHavingAppointmentsAsync(Guid doctorId, DateTime fromDate, DateTime toDate)
         {
             Doctor? doctor = await this.doctorRepository

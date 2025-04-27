@@ -7,6 +7,9 @@ using static HospitalAppointmentSystem.Common.Constants.ApplicationConstants;
 
 namespace HospitalAppointmentSystem.Areas.Admin.Controllers
 {
+    /// <summary>
+    /// Контролер за управление на специалностите на докторите в административния панел.
+    /// </summary>
     [Area(AdminRoleName)]
     [Authorize(Roles = AdminRoleName)]
     public class SpecializationManagementController : BaseController
@@ -19,6 +22,9 @@ namespace HospitalAppointmentSystem.Areas.Admin.Controllers
             this.specializationService = specializationService;
         }
 
+        /// <summary>
+        /// Показва всички налични специалности.
+        /// </summary>
         [HttpGet]
         public async Task<IActionResult> AllSpecializations()
         {
@@ -28,12 +34,18 @@ namespace HospitalAppointmentSystem.Areas.Admin.Controllers
             return View(specializations);
         }
 
+        /// <summary>
+        /// Показва формата за създаване на нова специалност.
+        /// </summary>
         [HttpGet]
         public IActionResult Add()
         {
             return View();
         }
 
+        /// <summary>
+        /// Обработва пост заявка за създаване на нова специалност.
+        /// </summary>
         [HttpPost]
         public async Task<IActionResult> Add(AddSpecializationViewModel model)
         {

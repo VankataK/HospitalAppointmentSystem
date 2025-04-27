@@ -1,5 +1,8 @@
 ﻿namespace HospitalAppointmentSystem.ViewModels.Rating
 {
+    /// <summary>
+    /// Модел за филтриране на оценки по доктор, пациент и дата.
+    /// </summary>
     public class RatingFilterViewModel
     {
         public string? DoctorName { get; set; }

@@ -1,5 +1,8 @@
 ﻿namespace HospitalAppointmentSystem.ViewModels.Rating
 {
+    /// <summary>
+    /// Модел за показване на оценки в административния панел.
+    /// </summary>
     public class RatingAdminViewModel
     {
         public string DoctorName { get; set; } = null!;

@@ -1,11 +1,14 @@
-﻿using HospitalAppointmentSystem.Data.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using HospitalAppointmentSystem.Data.Models;
 using HospitalAppointmentSystem.Data.Repository.Interfaces;
 using HospitalAppointmentSystem.Services.Interfaces;
 using HospitalAppointmentSystem.ViewModels.Specialization;
-using Microsoft.EntityFrameworkCore;
 
 namespace HospitalAppointmentSystem.Services
 {
+    /// <summary>
+    /// Клас за управление на специалностите.
+    /// </summary>
     public class SpecializationService : ISpecializationService
     {
         private readonly IRepository<Specialization, Guid> specializationRepository;
@@ -15,6 +18,9 @@ namespace HospitalAppointmentSystem.Services
             this.specializationRepository = specializationRepository;
         }
 
+        /// <summary>
+        /// Връща всички специалности, подредени по име.
+        /// </summary>
         public async Task<IEnumerable<SpecializationViewModel>> GetAllAsync()
         {
             return await specializationRepository
@@ -28,6 +34,9 @@ namespace HospitalAppointmentSystem.Services
                 .ToListAsync();
         }
 
+        /// <summary>
+        /// Добавя нова специалност.
+        /// </summary>
         public async Task CreateAsync(AddSpecializationViewModel model)
         {
             Specialization specialization = new Specialization

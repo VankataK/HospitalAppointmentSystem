@@ -1,5 +1,9 @@
 ﻿namespace HospitalAppointmentSystem.ViewModels.Doctor
 {
+    /// <summary>
+    /// Модел за представяне на записан преглед при доктора.
+    /// Използва се в графика на доктора.
+    /// </summary>
     public class DoctorAppointmentViewModel
     {
         public TimeSpan Time { get; set; }

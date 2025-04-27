@@ -6,6 +6,9 @@ using static HospitalAppointmentSystem.Common.Constants.ApplicationConstants;
 
 namespace HospitalAppointmentSystem.Areas.Admin.Controllers
 {
+    /// <summary>
+    /// Контролер за управление на ревютата и оценките на лекари в административния панел.
+    /// </summary>
     [Area(AdminRoleName)]
     [Authorize(Roles = AdminRoleName)]
     public class RatingManagementController : Controller
@@ -17,6 +20,10 @@ namespace HospitalAppointmentSystem.Areas.Admin.Controllers
             this.ratingService = ratingService;
         }
 
+        /// <summary>
+        /// Показва всички оценки с възможност за филтриране по име на доктор, име на пациент и дата.
+        /// </summary>
+        [HttpGet]
         public async Task<IActionResult> AllRatings(RatingFilterViewModel inputModel)
         {
             IEnumerable<RatingAdminViewModel> ratings = 

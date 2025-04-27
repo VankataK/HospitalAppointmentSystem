@@ -1,5 +1,8 @@
 ﻿namespace HospitalAppointmentSystem.ViewModels.Vacation
 {
+    /// <summary>
+    /// Модел за показване на информация за отпуска на лекар.
+    /// </summary>
     public class VacationViewModel
     {
         public string Id { get; set; } = null!;

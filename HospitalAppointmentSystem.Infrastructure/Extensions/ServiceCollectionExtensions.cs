@@ -1,14 +1,20 @@
-﻿using HospitalAppointmentSystem.Data.Models;
+﻿using Microsoft.Extensions.DependencyInjection;
+using HospitalAppointmentSystem.Data.Models;
 using HospitalAppointmentSystem.Data.Repository;
 using HospitalAppointmentSystem.Data.Repository.Interfaces;
 using HospitalAppointmentSystem.Services;
 using HospitalAppointmentSystem.Services.Interfaces;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace HospitalAppointmentSystem.Common.Extensions
 {
+    /// <summary>
+    /// Клас за конфигуриране на DI контейнера със зависимости за репозиториите и сервизите.
+    /// </summary>
     public static class ServiceCollectionExtensions
     {
+        /// <summary>
+        /// Регистрира всички репозиторита в DI контейнера.
+        /// </summary>
         public static IServiceCollection AddRepositories(this IServiceCollection services)
         {
             services.AddScoped<IRepository<Appointment, Guid>, BaseRepository<Appointment, Guid>>();
@@ -20,6 +26,9 @@ namespace HospitalAppointmentSystem.Common.Extensions
             return services;
         }
 
+        /// <summary>
+        /// Регистрира всички сървизи в DI контейнера.
+        /// </summary>
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
             services.AddScoped<IAppointmentService, AppointmentService>();

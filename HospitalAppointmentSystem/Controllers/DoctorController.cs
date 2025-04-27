@@ -6,10 +6,12 @@ using HospitalAppointmentSystem.Services.Interfaces;
 using HospitalAppointmentSystem.ViewModels.Doctor;
 using HospitalAppointmentSystem.ViewModels.Specialization;
 using HospitalAppointmentSystem.ViewModels.Vacation;
-using static HospitalAppointmentSystem.Common.Constants.ApplicationConstants;
 
 namespace HospitalAppointmentSystem.Controllers
 {
+    /// <summary>
+    /// Контролер за преглед на лекари и управление на отпуски от страна на лекарите.
+    /// </summary>
     [Authorize]
     public class DoctorController : BaseController
     {
@@ -25,6 +27,9 @@ namespace HospitalAppointmentSystem.Controllers
             this.userManager = userManager;
         }
 
+        /// <summary>
+        /// Показва всички лекари с възможност за филтриране по специализация.
+        /// </summary>
         [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> Index(DoctorListViewModel inputModel)
@@ -44,6 +49,9 @@ namespace HospitalAppointmentSystem.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// Показва детайли за конкретен лекар, включително свободни часове.
+        /// </summary>
         [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> Details(string id, int weekOffset = 0)
@@ -66,6 +74,9 @@ namespace HospitalAppointmentSystem.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// Показва графика с прегледите на лекаря за конкретен ден.
+        /// </summary>
         [HttpGet]
         public async Task<IActionResult> Schedule(int dayOffset = 0)
         {
@@ -95,6 +106,9 @@ namespace HospitalAppointmentSystem.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// Показва всички отпуски на лекаря.
+        /// </summary>
         [HttpGet]
         public async Task<IActionResult> MyVacations()
         {
@@ -117,6 +131,9 @@ namespace HospitalAppointmentSystem.Controllers
             return View(vacations);
         }
 
+        /// <summary>
+        /// Показва формата за добавяне на нова отпуска.
+        /// </summary>
         [HttpGet]
         public async Task<IActionResult> AddVacation()
         {
@@ -135,6 +152,9 @@ namespace HospitalAppointmentSystem.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// Записва нова отпуска на доктора.
+        /// </summary>
         [HttpPost]
         public async Task<IActionResult> AddVacation(AddVacationViewModel model)
         {
@@ -183,6 +203,9 @@ namespace HospitalAppointmentSystem.Controllers
             return RedirectToAction(nameof(MyVacations));
         }
 
+        /// <summary>
+        /// Изтрива съществуваща отпуска.
+        /// </summary>
         [HttpPost]
         public async Task<IActionResult> DeleteVacation(string vacationId)
         {

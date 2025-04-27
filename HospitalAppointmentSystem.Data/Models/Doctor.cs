@@ -1,10 +1,13 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 using static HospitalAppointmentSystem.Common.Constants.EntityConstants;
 
 namespace HospitalAppointmentSystem.Data.Models
 {
+    /// <summary>
+    /// Модел за доктор в системата.
+    /// </summary>
     public class Doctor
     {
         [Key]
