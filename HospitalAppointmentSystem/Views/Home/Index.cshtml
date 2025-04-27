@@ -4,77 +4,91 @@
 @{
     ViewData["Title"] = "Начало";
 }
+<header class="bg-primary text-white py-5">
+    <div class="container text-center">
+        <h1 class="display-4 fw-bold mb-4">Онлайн система за справки и обслужване на болница.</h1>
+        <p class="lead mb-4">
+            Вашето здраве е наш приоритет. Запишете час за преглед бързо и лесно.
+        </p>
+        <a asp-controller="Doctor" asp-action="Index" class="btn btn-light btn-lg">Запишете час</a>
+    </div>
+</header>
 
-<div class="container py-5">
-    <h1 class="display-5 text-center mb-5">
-        Онлайн система за справки и обслужване на болница.
-    </h1>
+<section class="py-5">
+    <div class="container">
+        <h2 class="text-center mb-4">За нас</h2>
+        <p class="text-center">
+            Нашата болница предлага висококачествени медицински грижи, предоставени от екип от опитни специалисти,
+            с подкрепата на модерна апаратура и с специално внимание към всеки пациент.
+            Стремим се да осигурим комфортна и приветлива среда, в която вашето здраве е на първо място.
+        </p>
+    </div>
+</section>
 
-    <p class="lead text-center mb-5 fs-4">
-        Нашата система ви позволява бързо и лесно да запазите час при доктор, да видите графика си, да оцените прегледа и да управлявате медицинските си посещения — всичко това онлайн.
-    </p>
-
-    @if (this.User?.Identity?.IsAuthenticated ?? false)
+@if (this.User?.Identity?.IsAuthenticated ?? false)
+{
+    if (User.IsInRole("Patient"))
     {
-        @if (this.User?.IsInRole("Patient") ?? false)
-        {
-            <div class="row row-cols-1 row-cols-md-2 g-4 justify-content-center">
-                <div class="col d-flex">
-                    <div class="card shadow-sm flex-fill">
-                        <div class="card-body d-flex flex-column">
-                            <h5 class="card-title">Доктори</h5>
-                            <p class="card-text flex-grow-1">
-                                Прегледайте всички налични лекари, вижте техните оценки и запазете час удобно онлайн.
-                            </p>
-                            <a asp-controller="Doctor" asp-action="Index" class="btn btn-primary mt-auto">Запиши час</a>
+        <section class="py-5">
+            <div class="container">
+                <div class="row row-cols-1 row-cols-md-2 g-4">
+                    <div class="col">
+                        <div class="card h-100 shadow-sm">
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title">Доктори</h5>
+                                <p class="card-text flex-grow-1">
+                                    Прегледайте всички налични лекари, вижте техните оценки и запазете час удобно онлайн.
+                                </p>
+                                <a asp-controller="Doctor" asp-action="Index" class="btn btn-primary mt-auto">Запази час</a>
+                            </div>
                         </div>
                     </div>
-                </div>
-
-                <div class="col d-flex">
-                    <div class="card shadow-sm flex-fill">
-                        <div class="card-body d-flex flex-column">
-                            <h5 class="card-title">Моите часове</h5>
-                            <p class="card-text flex-grow-1">
-                                Вижте вашите предстоящи прегледи, минали посещения и оценки, които сте дали на лекари.
-                            </p>
-                            <a asp-controller="Appointment" asp-action="MyAppointments" class="btn btn-outline-primary mt-auto">Прегледай</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        }
-
-        @if (await doctorService.IsUserDoctorAsync(this.User.GetUserId()))
-        {
-            <div class="row row-cols-1 row-cols-md-2 g-4 justify-content-center">
-                <div class="col d-flex">
-                    <div class="card shadow-sm flex-fill">
-                        <div class="card-body d-flex flex-column">
-                            <h5 class="card-title">График за деня</h5>
-                            <p class="card-text flex-grow-1">
-                                Вижте предстоящите ви прегледи за избрания ден. Навигирайте лесно между датите.
-                            </p>
-                            <a asp-controller="Doctor" asp-action="Schedule" class="btn btn-primary mt-auto">Виж графика</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col d-flex">
-                    <div class="card shadow-sm flex-fill">
-                        <div class="card-body d-flex flex-column">
-                            <h5 class="card-title">Отпуск</h5>
-                            <p class="card-text flex-grow-1">
-                                Преглед, добавяне и отмяна на отпуски.
-                            </p>
-                            <a asp-controller="Doctor" asp-action="MyVacations" class="btn btn-outline-primary mt-auto">Преглед</a>
+                    <div class="col">
+                        <div class="card h-100 shadow-sm">
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title">Моите часове</h5>
+                                <p class="card-text flex-grow-1">
+                                    Вижте вашите предстоящи прегледи, минали посещения и оценки, които сте дали на лекари.
+                                </p>
+                                <a asp-controller="Appointment" asp-action="MyAppointments" class="btn btn-outline-primary mt-auto">Прегледай</a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-        }
+        </section>
     }
-</div>
+    if (await doctorService.IsUserDoctorAsync(User.GetUserId()))
+    {
+        <section class="py-5">
+            <div class="container">
+                <div class="row row-cols-1 row-cols-md-2 g-4">
+                    <div class="col">
+                        <div class="card h-100 shadow-sm">
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title">График за деня</h5>
+                                <p class="card-text flex-grow-1">
+                                    Вижте предстоящите ви прегледи за избрания ден. Навигирайте лесно между датите.
+                                </p>
+                                <a asp-controller="Doctor" asp-action="Schedule" class="btn btn-primary mt-auto">Виж графика</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card h-100 shadow-sm">
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title">Отпуск</h5>
+                                <p class="card-text flex-grow-1">
+                                    Преглед, добавяне и отмяна на отпуски.
+                                </p>
+                                <a asp-controller="Doctor" asp-action="MyVacations" class="btn btn-outline-primary mt-auto">Преглед</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    }
+}
 
 
