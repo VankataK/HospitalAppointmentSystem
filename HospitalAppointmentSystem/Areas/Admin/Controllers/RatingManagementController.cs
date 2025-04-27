@@ -8,11 +8,11 @@ namespace HospitalAppointmentSystem.Areas.Admin.Controllers
 {
     [Area(AdminRoleName)]
     [Authorize(Roles = AdminRoleName)]
-    public class RatingManagmentController : Controller
+    public class RatingManagementController : Controller
     {
         private readonly IRatingService ratingService;
 
-        public RatingManagmentController(IRatingService ratingService)
+        public RatingManagementController(IRatingService ratingService)
         {
             this.ratingService = ratingService;
         }

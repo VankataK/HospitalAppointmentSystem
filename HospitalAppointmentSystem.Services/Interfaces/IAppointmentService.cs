@@ -10,6 +10,6 @@ namespace HospitalAppointmentSystem.Services.Interfaces
         Task<Appointment?> GetAppointmentByIdAsync(Guid id);
         Task<RatingViewModel?> GetAppointmentForRatingAsync(Guid appointmentId, Guid userId);
         Task AddAppointmentAsync(AppointmentConfirmationViewModel inputModel, string patientId);
-        Task<bool> DeleteAppointmentAsync(Appointment appointment);
+        Task<bool> SoftDeleteAppointmentAsync(Guid id);
     }
 }

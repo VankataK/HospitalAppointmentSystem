@@ -72,11 +72,7 @@ namespace HospitalAppointmentSystem.Controllers
         [HttpGet]
         public async Task<IActionResult> MyAppointments()
         {
-            string? userId = User.GetUserId();
-            if(userId == null)
-            {
-                return Unauthorized();
-            }
+            string userId = User.GetUserId()!;
 
             Guid userGuid = Guid.Empty;
             if (!IsGuidValid(userId, ref userGuid))
@@ -99,14 +95,7 @@ namespace HospitalAppointmentSystem.Controllers
                 return RedirectToAction(nameof(MyAppointments));
             }
 
-            Appointment? appointment = await this.appointmentService.GetAppointmentByIdAsync(appointmentGuid);
-
-            if (appointment == null)
-            {
-                return RedirectToAction(nameof(MyAppointments));
-            }
-
-            bool result = await this.appointmentService.DeleteAppointmentAsync(appointment);
+            bool result = await this.appointmentService.SoftDeleteAppointmentAsync(appointmentGuid);
 
             if (result)
             {

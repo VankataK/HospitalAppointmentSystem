@@ -22,7 +22,7 @@ namespace HospitalAppointmentSystem.Services
                 .GetAllAttached()
                 .Include(a => a.Doctor)
                 .ThenInclude(d => d.User)
-                .Where(a => a.PatientId == patientId)
+                .Where(a => a.PatientId == patientId && a.IsDeleted == false)
                 .OrderByDescending(a => a.AppointmentDateTime)
                 .Select(a => new MyAppointmentsViewModel
                 {
@@ -39,7 +39,9 @@ namespace HospitalAppointmentSystem.Services
         public async Task<Appointment?> GetAppointmentByIdAsync(Guid id)
         {
             Appointment? appointment = await this.appointmentRepository
-                .GetByIdAsync(id);
+                .GetAllAttached()
+                .Where(a => a.IsDeleted == false)
+                .FirstOrDefaultAsync(a => a.Id == id);
 
             return appointment;
         }
@@ -48,6 +50,7 @@ namespace HospitalAppointmentSystem.Services
         {
             Appointment? appointment = await appointmentRepository
             .GetAllAttached()
+            .Where(a => a.IsDeleted == false)
             .Include(a => a.Rating)
             .FirstOrDefaultAsync(a => a.Id == appointmentId && a.PatientId == userId);
 
@@ -85,11 +88,18 @@ namespace HospitalAppointmentSystem.Services
             await this.appointmentRepository.AddAsync(appointment);
         }
 
-        public async Task<bool> DeleteAppointmentAsync(Appointment appointment)
+        public async Task<bool> SoftDeleteAppointmentAsync(Guid id)
         {
-            bool result = await this.appointmentRepository.DeleteAsync(appointment);
+            Appointment? appointmentToDelete = await this.appointmentRepository
+                .FirstOrDefaultAsync(a => a.Id == id);
 
-            return result;
+            if (appointmentToDelete == null)
+            {
+                return false;
+            }
+
+            appointmentToDelete.IsDeleted = true;
+            return await this.appointmentRepository.UpdateAsync(appointmentToDelete);
         }
     }
 }

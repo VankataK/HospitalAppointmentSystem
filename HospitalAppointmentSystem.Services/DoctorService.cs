@@ -126,6 +126,14 @@ namespace HospitalAppointmentSystem.Services
                 Gender = doctor.User.Gender,
                 Age = doctor.User.Age,
                 SpecializationName = doctor.Specialization.Name,
+                AverageProfessionalism = doctor.Appointments
+                    .Where(a => a.Rating != null).Count() >= 20
+                    ? doctor.Appointments.Where(a => a.Rating != null).Average(a => a.Rating!.Professionalism).ToString("F2")
+                    : null,
+                AverageAttitude = doctor.Appointments
+                    .Where(a => a.Rating != null).Count() >= 20
+                    ? doctor.Appointments.Where(a => a.Rating != null).Average(a => a.Rating!.Attitude).ToString("F2")
+                    : null,
                 Description = doctor.Description,
                 WeekStart = startOfWeek
             };

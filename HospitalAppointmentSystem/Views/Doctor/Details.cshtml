@@ -18,6 +18,18 @@
              <strong>Специалност:</strong> @Model.SpecializationName
          </div>
 
+        @if(Model.AverageProfessionalism != null)
+        {
+            <div class="mb-2">
+                <i class="bi bi-star-fill text-warning me-2"></i>
+                <strong>Професионализъм:</strong> @Model.AverageProfessionalism
+            </div>
+            <div class="mb-2">
+                <i class="bi bi-chat-left-dots text-secondary me-2"></i>
+                <strong>Отношение:</strong> @Model.AverageAttitude
+            </div>
+        }
+
          @if (!string.IsNullOrWhiteSpace(Model.Description))
          {
              <div class="mb-4">

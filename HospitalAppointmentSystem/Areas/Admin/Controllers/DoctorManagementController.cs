@@ -10,11 +10,11 @@ namespace HospitalAppointmentSystem.Areas.Admin.Controllers
 {
     [Area(AdminRoleName)]
     [Authorize(Roles = AdminRoleName)]
-    public class DoctorManagmentController : BaseController
+    public class DoctorManagementController : BaseController
     {
         private readonly ISpecializationService specializationService;
 
-        public DoctorManagmentController(ISpecializationService specializationService, IDoctorService doctorService)
+        public DoctorManagementController(ISpecializationService specializationService, IDoctorService doctorService)
             : base(doctorService)
         {
             this.specializationService = specializationService;

@@ -8,7 +8,6 @@ namespace HospitalAppointmentSystem.Services
 {
     public class VacationService : BaseService, IVacationService
     {
-        private readonly IRepository<Appointment, Guid> appointmentRepository;
         private readonly IRepository<Vacation, Guid> vacationRepository;
 
         public VacationService(IRepository<Vacation, Guid> vacationRepository)
@@ -36,8 +35,7 @@ namespace HospitalAppointmentSystem.Services
         public async Task<Vacation?> GetVacationById(Guid id)
         {
             Vacation? vacation = await this.vacationRepository
-                .GetAllAttached()
-                .FirstOrDefaultAsync(v => v.Id == id);
+                .GetByIdAsync(id);
 
             return vacation;
         }

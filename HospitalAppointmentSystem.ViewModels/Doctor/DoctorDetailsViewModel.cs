@@ -7,6 +7,8 @@
         public string Gender { get; set; } = null!;
         public int Age { get; set; }
         public string SpecializationName { get; set; } = null!;
+        public string? AverageProfessionalism { get; set; }
+        public string? AverageAttitude { get; set; }
         public string? Description { get; set; }
         public DateTime WeekStart { get; set; }
         public List<DayAvailability> Days { get; set; } = new List<DayAvailability>();
