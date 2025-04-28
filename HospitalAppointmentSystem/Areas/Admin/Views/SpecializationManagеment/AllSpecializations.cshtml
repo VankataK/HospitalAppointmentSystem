@@ -1,0 +1,33 @@
+﻿@model List<SpecializationViewModel>
+
+@{
+    ViewData["Title"] = "Всички специалности";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="text-center flex-grow-1 mb-0">Всички специалности</h2>
+    <a asp-action="Add" class="btn btn-success ms-3">Добави специалност</a>
+</div>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info text-center">Няма добавени специалности.</div>
+}
+else
+{
+    <table class="table table-bordered table-striped text-center align-middle">
+        <thead class="table-light">
+            <tr>
+                <th>Име на специалността</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var spec in Model)
+            {
+                <tr>
+                    <td>@spec.Name</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
